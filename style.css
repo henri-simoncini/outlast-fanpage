@@ -85,32 +85,18 @@ body {
     z-index: 99;
     width: 100%;
     height: auto;
-    background-color: var(--bgcolor);
-    padding: 0.4rem 3rem;
+    background-color: var(--alt);
+    padding: 0.7rem 3rem;
     display: flex;
-
+    align-items: center;
+    justify-content: space-between;
 }
 
 .logo {
     width: auto;
-}
-
-.header .logo h1 {
-    font-family: var(--title);
-    font-size: 1.4em;
-    font-weight: 100;
-    letter-spacing: 2px;
-    color: var(--main);
-}
-
-.header .logo h4 {
-    font-family: var(--paragraph);
-    font-weight: 100;
-    font-size: 0.9em;
-}
-
-.logo {
     display: flex;
-    flex-direction: column;
     align-items: center;
+}
+.logo img {
+    width: 150px;
 }
