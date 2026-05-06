@@ -1,0 +1,40 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+
+:root {
+    /* PALETA DE CORES */
+    --bgcolor: #;
+    --main: #;
+    --alt: #;
+    --text: #;
+    --shadows: #;
+
+    /* FONTES */
+    --title: '', ;
+    --subtitle: '', ;
+    --paragraph: '', ;
+
+}
+
+/* SCROLLBAR */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: var(--main);
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: var(--alt);
+}
+
+/* CORPO DO SITE */
+body {
+    overflow-x: hidden;
+    background-color: var(--bgcolor);
+}
