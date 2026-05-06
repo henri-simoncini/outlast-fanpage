@@ -48,8 +48,10 @@ a {
 body {
     overflow-x: hidden;
     color: #f2f2f2;
+    position: absolute;
     display: flex;
     flex-direction: column;
+    width: 100%;
     background-color: var(--bgcolor);
 }
 
@@ -82,10 +84,11 @@ body {
 }
 
 .header {
+    position: fixed;
+    top: 0;
     z-index: 99;
     width: 100%;
     height: auto;
-    background-color: var(--alt);
     padding: 0.7rem 3rem;
     display: flex;
     align-items: center;
@@ -97,6 +100,103 @@ body {
     display: flex;
     align-items: center;
 }
+
 .logo img {
-    width: 150px;
+    width: 200px;
+}
+
+.header nav {
+    display: flex;
+    gap: 30px;
+    font-family: var(--paragraph);
+}
+
+.hero {
+    position: relative;
+    height: 100vh;
+    min-height: 600px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    overflow: hidden;
+    color: #E5E5E5;
+}
+
+.glitch-overlay {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 3;
+
+    background:
+        repeating-linear-gradient(0deg,
+            var(--main) 0px,
+            var(--main-hover) 50px,
+            transparent 1px,
+            transparent 3px);
+
+    mix-blend-mode: overlay;
+    animation: glitchFlicker 0.15s infinite;
+}
+
+/* piscadas rápidas */
+@keyframes glitchFlicker {
+    0% {
+        opacity: 0.05;
+    }
+
+    50% {
+        opacity: 0.15;
+    }
+
+    100% {
+        opacity: 0.05;
+    }
+}
+
+/* glitch forte ocasional */
+.hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: inherit;
+    z-index: 2;
+    opacity: 0;
+}
+
+.hero.glitch-active::before {
+    animation: glitchShift 0.3s;
+}
+
+@keyframes glitchShift {
+    0% {
+        transform: translate(0, 0);
+        filter: hue-rotate(0deg);
+        opacity: 0.2;
+    }
+
+    20% {
+        transform: translate(-10px, 5px);
+        filter: hue-rotate(90deg);
+    }
+
+    40% {
+        transform: translate(10px, -5px);
+        filter: hue-rotate(-90deg);
+    }
+
+    60% {
+        transform: translate(-5px, 2px);
+    }
+
+    80% {
+        transform: translate(5px, -2px);
+    }
+
+    100% {
+        transform: translate(0, 0);
+        opacity: 0;
+    }
 }
