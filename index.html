@@ -17,6 +17,9 @@
 
         <!-- JAVASCRIPT -->
         <script src="script.js" defer></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+        <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     </head>
     <body>
         <header class="header">
@@ -31,11 +34,12 @@
                 <a href="#galeria">GALERIA</a>
                 <a href="#sobre">SOBRE</a>
             </nav>
-            <a href class="btn-join">ENTRAR NO ASILO</a>
+            <a href class="btn-join"><p>ENTRAR NO ASILO</p><b>◆</b></a>
         </header>
 
-        <section class="hero">
+        <section class="hero" id="inicio">
             <img src="assets/bg.png" class="bg-hero-img">
+            <img src="assets/rec-overlay.png" alt class="rec-overlay">
             <div class="glitch-overlay"></div>
             <article>
                 <img src="assets/title-hero.png" alt>
@@ -47,34 +51,39 @@
             </article>
         </section>
         <section class="news-hqs">
-            <article>
+            <article id="noticias">
                 <h1>NOTÍCIAS</h1>
-                <div class="card">
-                    <img src alt>
-                    <i class="date">12 DE MAIO, 2024</i>
-                    <h4>THE OUTLAST TRIALS: NOVA ATUALIZAÇÃO TRAZ NOVOS DESAFIOS E RECOMPENSAS</h4>
-                    <p>A Red Barrels anunciou uma nova atualização para The Outlast Trials com novos mapas, objetivos e
-                        melhorias gerais...</p>
-                    <a href>LER MAIS <i></i></a>
-                </div>
-                <div class="card">
-                    <img src alt>
-                    <i class="date">6 DE MAIO, 2024</i>
-                    <h4>TEORIAS: O SIGNIFICADO POR TRÁS DOS EXPERIMENTOS DA MURKOFF</h4>
-                    <p>Uma análise profunda sobre os experimentos da Murkoff Corporation e como eles conectam todos os
-                        jogos da franquia.</p>
-                    <a href>LER MAIS <i></i></a>
-                </div>
-                <div class="card">
-                    <img src alt>
-                    <i class="date">28 DE ABRIL, 2024</i>
-                    <h4>CURIOSIDADES: 15 FATOS SOBRE OUTLAST QUE VOCÊ (PROVAVELMENTE) NÃO SABIA</h4>
-                    <p>Detalhes escondidos, referências e segredos que tornam Outlast uma das franquias de terror mais
-                        assustadoras.</p>
-                    <a href>LER MAIS <i></i></a>
+                <div class="carrossel">
+                    <div class="card">
+                        <img src="assets/news-1.jpg" alt>
+                        <i class="date">12 DE MAIO, 2024</i>
+                        <h4>THE OUTLAST TRIALS: NOVA ATUALIZAÇÃO TRAZ NOVOS DESAFIOS E RECOMPENSAS</h4>
+                        <p>A Red Barrels anunciou uma nova atualização para The Outlast Trials com novos mapas,
+                            objetivos e
+                            melhorias gerais...</p>
+                        <a href>LER MAIS <i></i></a>
+                    </div>
+                    <div class="card">
+                        <img src="assets/news-2.jpg" alt>
+                        <i class="date">6 DE MAIO, 2024</i>
+                        <h4>TEORIAS: O SIGNIFICADO POR TRÁS DOS EXPERIMENTOS DA MURKOFF</h4>
+                        <p>Uma análise profunda sobre os experimentos da Murkoff Corporation e como eles conectam todos
+                            os
+                            jogos da franquia.</p>
+                        <a href>LER MAIS <i></i></a>
+                    </div>
+                    <div class="card">
+                        <img src="assets/news-3.webp" alt>
+                        <i class="date">28 DE ABRIL, 2024</i>
+                        <h4>CURIOSIDADES: 15 FATOS SOBRE OUTLAST QUE VOCÊ (PROVAVELMENTE) NÃO SABIA</h4>
+                        <p>Detalhes escondidos, referências e segredos que tornam Outlast uma das franquias de terror
+                            mais
+                            assustadoras.</p>
+                        <a href>LER MAIS <i></i></a>
+                    </div>
                 </div>
             </article>
-            <aside>
+            <aside id="hqs">
                 <header class="header-alt">
                     <h1>HQs</h1>
                     <a href>VER TODAS <i></i></a>
@@ -86,10 +95,10 @@
                             <div class="testimonial-content swiper-wrapper">
                                 <div class="testimonial-slide swiper-slide">
                                     <div class="hqs">
-                                        <img src alt>
-                                        <img src alt>
-                                        <img src alt>
-                                        <img src alt>
+                                        <img src="assets/files-1.webp" alt>
+                                        <img src="assets/files-2.jpg" alt>
+                                        <img src="assets/files-3.jfif" alt>
+                                        <img src="assets/files-4.jfif" alt>
                                     </div>
                                     <h4>THE MURKOFF FILES #1</h4>
                                     <p>
@@ -100,29 +109,32 @@
                                 </div>
                                 <div class="testimonial-slide swiper-slide">
                                     <div class="hqs">
-                                        <img src alt>
-                                        <img src alt>
-                                        <img src alt>
-                                        <img src alt>
+                                        <img src="assets/collection-1.webp" alt>
+                                        <img src="assets/collection-2.webp" alt>
+                                        <img src="assets/collection-3.webp" alt>
+                                        <img src="assets/collection-4.webp" alt>
                                     </div>
-                                    <h4>THE MURKOFF FILES #1</h4>
+                                    <h4>THE MURKOFF COLLECTIONS #1</h4>
                                     <p>
-                                        Documentos vazados revelam os primeiros experimentos da Murkoff e o início de
-                                        tudo.
+                                        A Murkoff Corporation, em rápida expansão, utiliza ciência e psicoterapia de
+                                        ponta para promover liberdade, prosperidade e o fortalecimento dos mercados
+                                        livres ao redor do mundo.
                                     </p>
                                     <a href>LER HQ</a>
                                 </div>
                                 <div class="testimonial-slide swiper-slide">
                                     <div class="hqs">
-                                        <img src alt>
-                                        <img src alt>
-                                        <img src alt>
-                                        <img src alt>
+                                        <img src="assets/account-1.webp" alt>
+                                        <img src="assets/account-2.webp" alt>
+                                        <img src="assets/account-3.webp" alt>
+                                        <img src="assets/account-4.webp" alt>
                                     </div>
-                                    <h4>THE MURKOFF FILES #1</h4>
+                                    <h4>THE MURKOFF ACCOUNT #1</h4>
                                     <p>
-                                        Documentos vazados revelam os primeiros experimentos da Murkoff e o início de
-                                        tudo.
+                                        A corporação multinacional MURKOFF ultrapassa constantemente os limites da
+                                        pesquisa e do desenvolvimento científico. Em parceria com grandes mentes, atua
+                                        em áreas como terapia genética, psicologia comportamental, tecnologia da
+                                        informação e medicina.
                                     </p>
                                     <a href>LER HQ</a>
                                 </div>
@@ -137,7 +149,7 @@
         </section>
 
         <section class="games-trailer">
-            <article>
+            <article id="jogos">
                 <header class="header-alt">
                     <h1>JOGOS</h1>
                     <a href>VER TODAS <i></i></a>
@@ -173,7 +185,7 @@
             </aside>
         </section>
         <section class="galeria">
-            <article>
+            <article id="galeria">
                 <header class="header-alt">
                     <h1>GALERIA</h1>
                     <nav>
@@ -227,7 +239,7 @@
         </section>
 
         <section class="sobre">
-            <article>
+            <article id="sobre">
                 <h1>SOBRE A FRANQUIA</h1>
                 <p>
                     Outlast é uma franquia de jogos de terror em primeira pessoa desenvolvida pela Red Barrels. A série
@@ -268,9 +280,9 @@
         </section>
 
         <footer class="footer">
-            <img src alt>
+            <img src="assets/footer-icon.png" alt>
             <nav>
-                <h4>REDES SOCIAIS</h4>
+                <h4>NAVEGAÇÃO</h4>
                 <a href>Início</a>
                 <a href>Notícias</a>
                 <a href>HQs</a>
@@ -280,10 +292,10 @@
             </nav>
             <div class="social">
                 <h4>REDES SOCIAIS</h4>
-                <a href><i></i></a>
-                <a href><i></i></a>
-                <a href><i></i></a>
-                <a href><i></i></a>
+                <a href><i class='bx bxl-youtube'></i></a>
+                <a href><i class='bx bxl-twitter'></i></a>
+                <a href><i class='bx bxl-instagram'></i></a>
+                <a href><i class='bx bxl-discord-alt'></i></a>
             </div>
             <div class="disclaimer">
                 <h4>DISCLAIMER</h4>
@@ -293,7 +305,7 @@
                 </p>
             </div>
             <video autoplay muted loop>
-                <source src>
+                <source src="assets/outlast-trailer.mp4">
             </video>
         </footer>
     </body>

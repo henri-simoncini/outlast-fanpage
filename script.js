@@ -13,8 +13,8 @@ setInterval(() => {
 
 // SWIPER
 var swiper = new Swiper(".mySwiper", {
-  slidesPerView: 3,
-  spaceBetween: 50,
+  slidesPerView: 1,
+  spaceBetween: 30,
   loop: true,
   grabCursor: true,
   pagination: {
@@ -77,3 +77,25 @@ var swiper = new Swiper(".mySwiper", {
 })(jQuery);
 
 $('.overlay').addClass('overlay-blue');
+
+let lastScroll = 0;
+const header = document.querySelector(".header");
+
+window.addEventListener("scroll", () => {
+    const currentScroll = window.scrollY;
+
+    if (!header) return;
+
+    if (currentScroll <= 0) {
+        header.classList.remove("hide");
+        return;
+    }
+
+    if (currentScroll > lastScroll && currentScroll > 100) {
+        header.classList.add("hide");
+    } else {
+        header.classList.remove("hide");
+    }
+
+    lastScroll = currentScroll;
+});
