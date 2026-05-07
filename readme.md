@@ -2,6 +2,7 @@
 <table>
     <tr>
         <td width="50%" valign="top">            
+            <h3>👋 Apresentação</h3>
             <p>Uma fanpage dedicada à franquia Outlast, trazendo uma experiência imersiva inspirada na estética de horror 
             psicológico da série.</p>
             <hr>
@@ -50,9 +51,9 @@
                 ├── index.html<br />
                 ├── style.css<br />
                 └── assets/<br />
-                  ├── imagens<br />
-                  ├── ícones<br />
-                  └── backgrounds
+                ...├── imagens<br />
+                ...├── ícones<br />
+                ...└── backgrounds
             </p>
             <hr>
             <h3>🚀 Como rodar o projeto</h3>
