@@ -59,7 +59,7 @@
             <h3>🚀 Como rodar o projeto</h3>
             <sub><b>Online</b></sub><br />
             <p>Acesse via GitHub Pages:</p>
-            <a href="https://seu-usuario.github.io/outlast-fanpage">https://seu-usuario.github.io/outlast-fanpage</a>
+            <a href="https://henri-simoncini.github.io/outlast-fanpage">https://henri-simoncini.github.io/outlast-fanpage</a>
             <hr>
             <h3>💀 Diferenciais</h3>
             <ul>
