@@ -82,20 +82,28 @@ let lastScroll = 0;
 const header = document.querySelector(".header");
 
 window.addEventListener("scroll", () => {
-    const currentScroll = window.scrollY;
+  const currentScroll = window.scrollY;
 
-    if (!header) return;
+  if (!header) return;
 
-    if (currentScroll <= 0) {
-        header.classList.remove("hide");
-        return;
-    }
+  if (currentScroll <= 0) {
+    header.classList.remove("hide");
+    return;
+  }
 
-    if (currentScroll > lastScroll && currentScroll > 100) {
-        header.classList.add("hide");
-    } else {
-        header.classList.remove("hide");
-    }
+  if (currentScroll > lastScroll && currentScroll > 100) {
+    header.classList.add("hide");
+  } else {
+    header.classList.remove("hide");
+  }
 
-    lastScroll = currentScroll;
+  lastScroll = currentScroll;
+});
+
+window.addEventListener("scroll", () => {
+  if (window.scrollY > 50) {
+    header.classList.add("scrolled");
+  } else {
+    header.classList.remove("scrolled");
+  }
 });
