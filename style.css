@@ -340,6 +340,7 @@ body {
     z-index: -1;
     position: absolute;
     height: auto;
+    opacity: 0.3;
 }
 
 .hero article {
@@ -558,13 +559,15 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 0;
-    /* essencial para flex funcionar dentro de grid */
+    /* ← crítico */
 }
 
 .testimonial-wrapper {
     flex: 1;
     display: flex;
     flex-direction: column;
+    min-height: 0;
+    /* ← adicione aqui também */
 }
 
 .testimonial-box {
@@ -574,30 +577,27 @@ body {
     border: 1px solid var(--border);
     padding: 20px;
     background: rgba(0, 0, 0, 0.5);
-    overflow: hidden;
+    min-height: 0;
+    /* ← crítico */
 }
 
-/* Sobrescreve o Swiper para respeitar altura do container */
-.testimonial-box.mySwiper {
-    height: auto !important;
+/* ↓ CORREÇÃO PRINCIPAL DO SWIPER */
+.testimonial-box.swiper {
+    height: 100%;
+    /* força o Swiper a respeitar o container */
 }
 
 .testimonial-box .swiper-wrapper {
-    flex: 1;
-    align-items: stretch !important;
-    /* garante que o slide ocupe altura total */
+    height: 100%;
 }
 
-.testimonial-box .swiper-slide {
-    height: auto !important;
-}
-
-/* O slide em si */
 .testimonial-slide {
     display: flex;
     flex-direction: column;
     gap: 10px;
     height: 100%;
+    /* ← era 50%, troque por 100% */
+    box-sizing: border-box;
 }
 
 .hqs {
@@ -605,10 +605,11 @@ body {
     grid-template-columns: repeat(4, 1fr);
     gap: 5px;
     flex-shrink: 0;
+    margin: 25px;
 }
 
 .hqs img {
-    width: 95%;
+    width: 100%;
     height: 150px;
     object-fit: cover;
     filter: brightness(0.6);
@@ -616,23 +617,27 @@ body {
 
 .testimonial-slide h4 {
     font-size: 0.9em;
+    margin-bottom: 5px;
     flex-shrink: 0;
+    /* ← evita que o título encolha */
 }
 
 .testimonial-slide p {
     font-size: 0.8em;
     color: var(--text-muted);
     flex: 1;
-    /* empurra o link para o fundo */
-    line-height: 1.5;
+    /* ← empurra o link para baixo */
+    margin: 0;
 }
 
 .testimonial-slide a {
     font-size: 0.8em;
     color: var(--main);
     flex-shrink: 0;
-    padding-top: 12px;
-    /* espaço visual acima do botão */
+    /* ← mantém o link fixo no final */
+    margin-top: auto;
+    /* ← garante que fique no final mesmo sem flex: 1 no p */
+    display: block;
 }
 
 .swiper-button-next,
