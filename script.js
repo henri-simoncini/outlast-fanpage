@@ -107,3 +107,38 @@ window.addEventListener("scroll", () => {
     header.classList.remove("scrolled");
   }
 });
+const hqs = [
+  { num: 1, title: "The Murkoff Files #1", desc: "Documentos vazados revelam os primeiros experimentos da Murkoff.", cover: "assets/collection-1.webp" },
+  { num: 2, title: "The Murkoff Files #2", desc: "O horror se intensifica enquanto os sujeitos de teste começam a desaparecer.", cover: "assets/collection-2.webp" },
+  { num: 3, title: "The Murkoff Files #3", desc: "Um jornalista infiltrado descobre a verdade sobre o Projeto Walrider.", cover: "assets/collection-3.webp" },
+  { num: 4, title: "The Murkoff Files #4", desc: "Os arquivos secretos expõem a cumplicidade do governo.", cover: "assets/collection-4.webp" },
+];
+
+let currentHQ = 0;
+const VISIBLE = 4;
+const hqTrack = document.getElementById('hqs-track');
+
+function buildHQSlides() {
+  hqTrack.innerHTML = '';
+  hqs.forEach((h, i) => {
+    const s = document.createElement('div');
+    s.className = 'slide' + (i === currentHQ ? ' active' : '');
+    s.innerHTML = `<img src="${h.cover}" alt="${h.title}"><span class="slide-num">${h.num}</span>`;
+    s.addEventListener('click', () => { currentHQ = i; updateHQ(); });
+    hqTrack.appendChild(s);
+  });
+}
+
+function updateHQ() {
+  hqTrack.querySelectorAll('.slide').forEach((s, i) => s.classList.toggle('active', i === currentHQ));
+  const offset = Math.min(currentHQ, Math.max(0, hqs.length - VISIBLE));
+  hqTrack.style.transform = `translateX(-${offset * (100 / VISIBLE)}%)`;
+  document.getElementById('hqs-title').textContent = hqs[currentHQ].title;
+  document.getElementById('hqs-desc').textContent = hqs[currentHQ].desc;
+}
+
+document.getElementById('hqs-prev').onclick = () => { currentHQ = Math.max(0, currentHQ - 1); updateHQ(); };
+document.getElementById('hqs-next').onclick = () => { currentHQ = Math.min(hqs.length - 1, currentHQ + 1); updateHQ(); };
+
+buildHQSlides();
+updateHQ();

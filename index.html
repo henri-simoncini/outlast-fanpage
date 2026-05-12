@@ -61,7 +61,7 @@
                         <p>A Red Barrels anunciou uma nova atualização para The Outlast Trials com novos mapas,
                             objetivos e
                             melhorias gerais...</p>
-                        <a href>LER MAIS <i></i></a>
+                        <a href>LER MAIS <i class='bx bx-chevron-right'></i></a>
                     </div>
                     <div class="card">
                         <img src="assets/news-2.jpg" alt>
@@ -70,7 +70,7 @@
                         <p>Uma análise profunda sobre os experimentos da Murkoff Corporation e como eles conectam todos
                             os
                             jogos da franquia.</p>
-                        <a href>LER MAIS <i></i></a>
+                        <a href>LER MAIS <i class='bx bx-chevron-right'></i></a>
                     </div>
                     <div class="card">
                         <img src="assets/news-3.webp" alt>
@@ -79,72 +79,29 @@
                         <p>Detalhes escondidos, referências e segredos que tornam Outlast uma das franquias de terror
                             mais
                             assustadoras.</p>
-                        <a href>LER MAIS <i></i></a>
+                        <a href>LER MAIS <i class='bx bx-chevron-right'></i></a>
                     </div>
                 </div>
             </article>
             <aside id="hqs">
                 <header class="header-alt">
                     <h1>HQs</h1>
-                    <a href>VER TODAS <i></i></a>
+                    <a href>VER TODAS <i class='bx bx-chevron-right'></i></a>
                 </header>
-
-                <div class="testimonial-container">
-                    <div class="testimonial-wrapper">
-                        <div class="testimonial-box mySwiper">
-                            <div class="testimonial-content swiper-wrapper">
-                                <div class="testimonial-slide swiper-slide">
-                                    <div class="hqs">
-                                        <img src="assets/files-1.webp" alt>
-                                        <img src="assets/files-2.jpg" alt>
-                                        <img src="assets/files-3.jfif" alt>
-                                        <img src="assets/files-4.jfif" alt>
-                                    </div>
-                                    <h4>THE MURKOFF FILES #1</h4>
-                                    <p>
-                                        Documentos vazados revelam os primeiros experimentos da Murkoff e o início de
-                                        tudo.
-                                    </p>
-                                    <a href>LER HQ</a>  
-                                </div>
-                                <div class="testimonial-slide swiper-slide">
-                                    <div class="hqs">
-                                        <img src="assets/collection-1.webp" alt>
-                                        <img src="assets/collection-2.webp" alt>
-                                        <img src="assets/collection-3.webp" alt>
-                                        <img src="assets/collection-4.webp" alt>
-                                    </div>
-                                    <h4>THE MURKOFF COLLECTIONS #1</h4>
-                                    <p>
-                                        A Murkoff Corporation, em rápida expansão, utiliza ciência e psicoterapia de
-                                        ponta para promover liberdade, prosperidade e o fortalecimento dos mercados
-                                        livres ao redor do mundo.
-                                    </p>
-                                    <a href>LER HQ</a>
-                                </div>
-                                <div class="testimonial-slide swiper-slide">
-                                    <div class="hqs">
-                                        <img src="assets/account-1.webp" alt>
-                                        <img src="assets/account-2.webp" alt>
-                                        <img src="assets/account-3.webp" alt>
-                                        <img src="assets/account-4.webp" alt>
-                                    </div>
-                                    <h4>THE MURKOFF ACCOUNT #1</h4>
-                                    <p>
-                                        A corporação multinacional MURKOFF ultrapassa constantemente os limites da
-                                        pesquisa e do desenvolvimento científico. Em parceria com grandes mentes, atua
-                                        em áreas como terapia genética, psicologia comportamental, tecnologia da
-                                        informação e medicina.
-                                    </p>
-                                    <a href>LER HQ</a>
-                                </div>
-                            </div>
-                            <div class="swiper-button-next"></div>
-                            <div class="swiper-button-prev"></div>
-                            <div class="swiper-pagination"></div>
-                        </div>
+                <div class="slider-wrapper">
+                    <button class="slider-btn" id="hqs-prev">&#8249;</button>
+                    <div class="slides-track-wrap">
+                        <div class="slides-track" id="hqs-track"></div>
                     </div>
+                    <button class="slider-btn" id="hqs-next">&#8250;</button>
                 </div>
+
+                <div class="slide-info">
+                    <h3 id="hqs-title"></h3>
+                    <p id="hqs-desc"></p>
+                    <button class="btn-ler">LER HQ</button>
+                </div>
+
             </aside>
         </section>
 
@@ -181,7 +138,10 @@
             </article>
             <aside>
                 <h3>TRAILER EM DESTAQUE</h3>
-                <iframe src frameborder="0"></iframe>
+                <iframe src="https://www.youtube.com/embed/ZkSydla4sxo?si=El5mraDOVeoUzGGc" title="Outlast - Trailer Oficial"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen></iframe>
             </aside>
         </section>
         <section class="galeria">
