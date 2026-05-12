@@ -108,10 +108,10 @@ window.addEventListener("scroll", () => {
   }
 });
 const hqs = [
-  { num: 1, title: "The Murkoff Files #1", desc: "Documentos vazados revelam os primeiros experimentos da Murkoff.", cover: "assets/collection-1.webp" },
-  { num: 2, title: "The Murkoff Files #2", desc: "O horror se intensifica enquanto os sujeitos de teste começam a desaparecer.", cover: "assets/collection-2.webp" },
-  { num: 3, title: "The Murkoff Files #3", desc: "Um jornalista infiltrado descobre a verdade sobre o Projeto Walrider.", cover: "assets/collection-3.webp" },
-  { num: 4, title: "The Murkoff Files #4", desc: "Os arquivos secretos expõem a cumplicidade do governo.", cover: "assets/collection-4.webp" },
+  { num: 1, title: "The Murkoff Files #1", desc: "Documentos vazados revelam os primeiros experimentos da Murkoff.", cover: "assets/img/hqs/collection-1.webp" },
+  { num: 2, title: "The Murkoff Files #2", desc: "O horror se intensifica enquanto os sujeitos de teste começam a desaparecer.", cover: "assets/img/hqs/collection-2.webp" },
+  { num: 3, title: "The Murkoff Files #3", desc: "Um jornalista infiltrado descobre a verdade sobre o Projeto Walrider.", cover: "assets/img/hqs/collection-3.webp" },
+  { num: 4, title: "The Murkoff Files #4", desc: "Os arquivos secretos expõem a cumplicidade do governo.", cover: "assets/img/hqs/collection-4.webp" },
 ];
 
 let currentHQ = 0;
