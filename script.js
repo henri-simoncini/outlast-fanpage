@@ -142,3 +142,30 @@ document.getElementById('hqs-next').onclick = () => { currentHQ = Math.min(hqs.l
 
 buildHQSlides();
 updateHQ();
+
+const cards = document.querySelectorAll('.carrossel-jogos .card');
+const trailerTrack = document.getElementById('trailer-track');
+const trailerFrames = trailerTrack.querySelectorAll('iframe');
+
+function goToTrailer(index) {
+  trailerTrack.style.transform = `translateX(-${index * 100}%)`;
+
+  trailerFrames.forEach((f, i) => {
+    f.classList.toggle('active', i === index);
+  });
+}
+
+cards.forEach((card, index) => {
+  card.addEventListener('click', (e) => {
+    if (e.target.closest('a')) return;
+
+    cards.forEach(c => c.classList.remove('active'));
+    card.classList.add('active');
+
+    goToTrailer(index);
+  });
+});
+
+// Inicia no primeiro
+cards[0].classList.add('active');
+goToTrailer(0);

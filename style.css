@@ -580,11 +580,13 @@ body {
     font-family: var(--paragraph);
     letter-spacing: 2px;
 }
+
 .center {
     position: relative;
     width: fit-content;
     height: 100%;
 }
+
 .header-alt nav {
     position: absolute;
     left: 50%;
@@ -595,9 +597,11 @@ body {
     justify-content: center;
     gap: 10%;
 }
+
 .header-alt nav>a {
     color: var(--text-muted);
 }
+
 .header-alt nav>a:hover {
     color: var(--text)
 }
@@ -817,6 +821,39 @@ body {
     width: 100%;
     height: 100%;
     border: 5px solid var(--border);
+}
+
+.carrossel-jogos .card.active {
+    border-color: var(--main);
+    box-shadow: 0 0 15px var(--main-glow);
+}
+
+.carrossel-jogos .card.active img {
+    filter: brightness(1);
+}
+
+.trailer-track-wrap {
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+}
+
+.trailer-track {
+    display: flex;
+    height: 100%;
+    transition: transform 0.4s cubic-bezier(.4, 0, .2, 1);
+}
+
+.trailer-track iframe {
+    flex: 0 0 100%;
+    width: 100%;
+    height: 100%;
+    border: none;
+    pointer-events: none;
+}
+
+.trailer-track iframe.active {
+    pointer-events: all;
 }
 
 /* ===================== GALERIA ===================== */
