@@ -183,3 +183,69 @@ const observer = new IntersectionObserver((entries) => {
 });
 
 reveals.forEach(el => observer.observe(el));
+const galeriaSection = document.querySelector('.galeria');
+const galeriaImgs = document.querySelectorAll('.grade-galeria .linha img');
+const viewerImg = document.getElementById('viewer-img');
+const viewerClose = document.getElementById('viewer-close');
+const viewerPrev = document.getElementById('viewer-prev');
+const viewerNext = document.getElementById('viewer-next');
+const viewerThumbs = document.getElementById('viewer-thumbs');
+const viewerCounter = document.getElementById('viewer-counter');
+
+const THUMBS_VISIBLE = 4;
+let currentIndex = 0;
+const images = [...galeriaImgs].map(img => img.src);
+
+// Cria os thumbnails no viewer
+images.forEach((src, i) => {
+  const thumb = document.createElement('img');
+  thumb.src = src;
+  thumb.className = 'viewer-thumb';
+  thumb.addEventListener('click', () => goTo(i));
+  viewerThumbs.appendChild(thumb);
+});
+
+const thumbEls = viewerThumbs.querySelectorAll('.viewer-thumb');
+
+function goTo(index) {
+  currentIndex = index;
+
+  // Atualiza imagem principal
+  viewerImg.style.opacity = 0;
+  setTimeout(() => {
+    viewerImg.src = images[index];
+    viewerImg.style.opacity = 1;
+  }, 150);
+
+  // Atualiza seleção no grid
+  galeriaImgs.forEach((img, i) => img.classList.toggle('selected', i === index));
+
+  // Atualiza thumbs
+  thumbEls.forEach((t, i) => t.classList.toggle('active', i === index));
+
+  // Move o track dos thumbs
+  const offset = Math.min(index, Math.max(0, images.length - THUMBS_VISIBLE));
+  viewerThumbs.style.transform = `translateX(-${offset * (100 / THUMBS_VISIBLE)}%)`;
+
+  // Contador
+  viewerCounter.textContent = `${index + 1} / ${images.length}`;
+}
+
+function openViewer(index) {
+  galeriaSection.classList.add('open');
+  goTo(index);
+}
+
+function closeViewer() {
+  galeriaSection.classList.remove('open');
+  galeriaImgs.forEach(img => img.classList.remove('selected'));
+}
+
+// Clique nas imagens do grid
+galeriaImgs.forEach((img, i) => {
+  img.addEventListener('click', () => openViewer(i));
+});
+
+viewerClose.addEventListener('click', closeViewer);
+viewerPrev.addEventListener('click', () => goTo((currentIndex - 1 + images.length) % images.length));
+viewerNext.addEventListener('click', () => goTo((currentIndex + 1) % images.length));
