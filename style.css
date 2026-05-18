@@ -88,7 +88,8 @@ body {
 }
 
 .header.scrolled {
-    background-color: var(--bgcolor);
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
 }
 
 .logo {
@@ -371,22 +372,23 @@ body {
 }
 
 .hero article img {
-    width: 45%;
+    width: 50%;
 }
 
 .hero article h4 {
     font-size: 1.3em;
     letter-spacing: 2px;
     font-weight: 500;
-    margin-left: 2rem;
+    margin-left: 1rem;
+    margin-top: 1rem;
 }
 
 .hero article .btns {
     font-weight: 400;
-    margin-left: 2rem;
+    margin-left: 1rem;
     display: flex;
     gap: 2rem;
-    margin-top: 2rem;
+    margin-top: 1rem;
 }
 
 .hero article .btns a {
@@ -432,6 +434,110 @@ body {
 
 .hero article .btns a:hover::after {
     opacity: 1;
+}
+
+.glitch-img {
+    position: relative;
+    display: block;
+}
+
+.glitch-img-wrap {
+    position: relative;
+    width: fit-content;
+}
+
+.glitch-img-wrap::before,
+.glitch-img-wrap::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url('assets/img/title-hero.png');
+    background-size: 50% 100%;
+    background-repeat: no-repeat;
+}
+
+.glitch-img-wrap::before {
+    filter: hue-rotate(180deg) saturate(2);
+    mix-blend-mode: screen;
+    animation: glitch-img-top 4s infinite linear;
+    clip-path: polygon(0 0, 100% 0, 100% 35%, 0 35%);
+}
+
+.glitch-img-wrap::after {
+    filter: hue-rotate(90deg) saturate(2);
+    mix-blend-mode: screen;
+    animation: glitch-img-bottom 4s infinite linear;
+    clip-path: polygon(0 65%, 100% 65%, 100% 100%, 0 100%);
+}
+
+@keyframes glitch-img-top {
+
+    0%,
+    88%,
+    100% {
+        transform: translate(0);
+        opacity: 0;
+    }
+
+    90% {
+        transform: translate(-6px, -2px);
+        opacity: 1;
+    }
+
+    92% {
+        transform: translate(6px, 2px);
+        opacity: 1;
+    }
+
+    94% {
+        transform: translate(-3px, 0);
+        opacity: 1;
+    }
+
+    96% {
+        transform: translate(3px, -1px);
+        opacity: 1;
+    }
+
+    98% {
+        transform: translate(0);
+        opacity: 0;
+    }
+}
+
+@keyframes glitch-img-bottom {
+
+    0%,
+    88%,
+    100% {
+        transform: translate(0);
+        opacity: 0;
+    }
+
+    91% {
+        transform: translate(6px, 2px);
+        opacity: 1;
+    }
+
+    93% {
+        transform: translate(-6px, -2px);
+        opacity: 1;
+    }
+
+    95% {
+        transform: translate(3px, 1px);
+        opacity: 1;
+    }
+
+    97% {
+        transform: translate(-3px, 0);
+        opacity: 1;
+    }
+
+    99% {
+        transform: translate(0);
+        opacity: 0;
+    }
 }
 
 /* ===================== NEWS + HQS ===================== */
@@ -1460,4 +1566,11 @@ body {
 
 .reveal-delay {
     transition-delay: 0.2s;
+}
+
+@media screen {
+    .header.hide {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
 }
