@@ -214,9 +214,14 @@
                 <aside class="galeria-viewer">
                     <div class="viewer-main">
                         <img id="viewer-img" src alt>
-                        <button class="viewer-close" id="viewer-close">
-                            <i class='bx bx-x'></i>
-                        </button>
+                        <div class="viewer-controls">
+                            <button class="viewer-btn-icon" id="viewer-fullscreen" title="Tela cheia">
+                                <i class='bx bx-fullscreen'></i>
+                            </button>
+                            <button class="viewer-btn-icon" id="viewer-close">
+                                <i class='bx bx-x'></i>
+                            </button>
+                        </div>
                     </div>
                     <div class="viewer-nav">
                         <button class="viewer-btn" id="viewer-prev">&#8249;</button>
@@ -313,5 +318,16 @@
                     <source src="assets/video/outlast-trailer.mp4">
                 </video>
             </footer>
+            <div class="fullscreen-overlay" id="fullscreen-overlay">
+                <img id="fullscreen-img" src alt>
+                <button class="fullscreen-close" id="fullscreen-close">
+                    <i class='bx bx-x'></i>
+                </button>
+                <div class="fullscreen-nav">
+                    <button id="fullscreen-prev">&#8249;</button>
+                    <span class="fullscreen-counter" id="fullscreen-counter">1 / 12</span>
+                    <button id="fullscreen-next">&#8250;</button>
+                </div>
+            </div>
         </body>
     </html>

@@ -249,3 +249,59 @@ galeriaImgs.forEach((img, i) => {
 viewerClose.addEventListener('click', closeViewer);
 viewerPrev.addEventListener('click', () => goTo((currentIndex - 1 + images.length) % images.length));
 viewerNext.addEventListener('click', () => goTo((currentIndex + 1) % images.length));
+const fullscreenOverlay = document.getElementById('fullscreen-overlay');
+const fullscreenImg = document.getElementById('fullscreen-img');
+const fullscreenClose = document.getElementById('fullscreen-close');
+const fullscreenPrev = document.getElementById('fullscreen-prev');
+const fullscreenNext = document.getElementById('fullscreen-next');
+const fullscreenCounter = document.getElementById('fullscreen-counter');
+
+function openFullscreen(index) {
+  currentIndex = index;
+  fullscreenImg.src = images[index];
+  fullscreenCounter.textContent = `${index + 1} / ${images.length}`;
+  fullscreenOverlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeFullscreen() {
+  fullscreenOverlay.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function switchFullscreen(index) {
+  fullscreenImg.classList.add('switching');
+
+  setTimeout(() => {
+    currentIndex = index;
+    fullscreenImg.src = images[currentIndex];
+    fullscreenCounter.textContent = `${currentIndex + 1} / ${images.length}`;
+    goTo(currentIndex);
+    fullscreenImg.classList.remove('switching');
+  }, 200);
+}
+
+document.getElementById('viewer-fullscreen').addEventListener('click', () => {
+  openFullscreen(currentIndex);
+});
+
+fullscreenClose.addEventListener('click', closeFullscreen);
+
+fullscreenPrev.addEventListener('click', () => {
+  switchFullscreen((currentIndex - 1 + images.length) % images.length);
+});
+
+fullscreenNext.addEventListener('click', () => {
+  switchFullscreen((currentIndex + 1) % images.length);
+});
+
+document.addEventListener('keydown', (e) => {
+  if (!fullscreenOverlay.classList.contains('open')) return;
+  if (e.key === 'Escape') closeFullscreen();
+  if (e.key === 'ArrowLeft') switchFullscreen((currentIndex - 1 + images.length) % images.length);
+  if (e.key === 'ArrowRight') switchFullscreen((currentIndex + 1) % images.length);
+});
+
+fullscreenOverlay.addEventListener('click', (e) => {
+  if (e.target === fullscreenOverlay) closeFullscreen();
+});
