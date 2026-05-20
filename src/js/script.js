@@ -317,3 +317,38 @@ if (recTimer) {
     recTimer.textContent = `${h}:${m}:${s}`;
   }, 1000);
 }
+document.addEventListener('DOMContentLoaded', () => {
+  const filtros = document.querySelectorAll('.filtro-btn');
+  const buscaInput = document.getElementById('busca-input');
+
+  if (!filtros.length) return;
+
+  filtros.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filtros.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      filtrarNoticias();
+    });
+  });
+
+  if (buscaInput) {
+    buscaInput.addEventListener('input', filtrarNoticias);
+  }
+
+  function filtrarNoticias() {
+    const filtroAtivo = document.querySelector('.filtro-btn.active')?.dataset.filtro;
+    const busca = buscaInput?.value.toLowerCase().trim() || '';
+    const cards = document.querySelectorAll('.noticia-card');
+
+    cards.forEach(card => {
+      const categoria = card.dataset.categoria;
+      const titulo = card.querySelector('h3')?.textContent.toLowerCase() || '';
+      const texto = card.querySelector('p')?.textContent.toLowerCase() || '';
+
+      const passaFiltro = filtroAtivo === 'todos' || categoria === filtroAtivo;
+      const passaBusca = busca === '' || titulo.includes(busca) || texto.includes(busca);
+
+      card.style.display = passaFiltro && passaBusca ? '' : 'none';
+    });
+  }
+});
