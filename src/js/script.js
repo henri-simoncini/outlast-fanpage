@@ -305,3 +305,15 @@ document.addEventListener('keydown', (e) => {
 fullscreenOverlay.addEventListener('click', (e) => {
   if (e.target === fullscreenOverlay) closeFullscreen();
 });
+
+const recTimer = document.getElementById('rec-timer');
+if (recTimer) {
+  let seconds = 0;
+  setInterval(() => {
+    seconds++;
+    const h = String(Math.floor(seconds / 3600)).padStart(2, '0');
+    const m = String(Math.floor((seconds % 3600) / 60)).padStart(2, '0');
+    const s = String(seconds % 60).padStart(2, '0');
+    recTimer.textContent = `${h}:${m}:${s}`;
+  }, 1000);
+}

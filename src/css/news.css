@@ -1,0 +1,508 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+
+:root {
+    --bgcolor: #0a0a0a;
+    --main: #1aff8c;
+    --alt: #8b0000;
+    --text: #e5e5e5;
+    --shadows: #020202;
+
+    --main-hover: #13cc70;
+    --main-glow: rgba(26, 255, 140, 0.25);
+    --alt-hover: #b30000;
+    --border: #222222;
+    --text-muted: #9a9a9a;
+
+    --title: 'Base 02', sans-serif;
+    --subtitle: 'Special Elite', sans-serif;
+    --paragraph: 'Barlow Semi Condensed', sans-serif;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: var(--alt);
+}
+
+body {
+    overflow-x: hidden;
+    color: var(--text);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100dvw;
+    background-color: var(--bgcolor);
+    height: auto;
+    font-family: var(--paragraph);
+}
+
+.bg-hero-img {
+    position: absolute;
+    z-index: -1;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    filter: brightness(50%);
+}
+
+.overlay {
+    position: absolute;
+    background: linear-gradient(90deg, rgba(0, 0, 0, 0.75) 0%, rgba(0, 0, 0, 0.5) 25%, transparent 70%);
+    width: 100%;
+    height: 100%;
+}
+
+.overlay2 {
+    position: absolute;
+    background: linear-gradient(rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 80%, var(--bgcolor) 100%);
+    width: 100%;
+    height: 100%;
+}
+
+.header {
+    position: fixed;
+    top: 0;
+    z-index: 99;
+    width: 100%;
+    height: auto;
+    padding: 0.7rem 5rem 0.7rem 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transform: translateY(0);
+    background: transparent;
+    backdrop-filter: blur(0);
+    transition: background 0.3s ease, backdrop-filter 0.3s ease, transform 0.3s ease, opacity 0.3s ease;
+}
+
+.header.scrolled {
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+}
+
+.logo {
+    width: auto;
+    display: flex;
+    align-items: center;
+}
+
+.logo img {
+    width: 200px;
+}
+
+.header nav {
+    display: flex;
+    gap: 40px;
+    font-family: var(--paragraph);
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.header .btn-join {
+    background-color: var(--alt);
+}
+
+.btn-join,
+.btn-join::after {
+    padding: 0.6rem 1.5rem;
+    font-size: 1em;
+    border: 3px solid var(--alt);
+    border-radius: 1px;
+    color: var(--text);
+    background-color: var(--alt-hover);
+    position: relative;
+    transition: .1s ease;
+    font-family: var(--paragraph);
+    font-weight: 500;
+    display: flex;
+    gap: 10px;
+    letter-spacing: 2px;
+}
+
+.btn-join::after {
+    --move1: inset(50% 50% 50% 50%);
+    --move2: inset(31% 0 40% 0);
+    --move3: inset(39% 0 15% 0);
+    --move4: inset(45% 0 40% 0);
+    --move5: inset(45% 0 6% 0);
+    --move6: inset(14% 0 61% 0);
+    clip-path: var(--move1);
+    content: 'ENTRAR NO ASILO';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: block;
+}
+
+.btn-join:hover::after {
+    animation: glitch_4011 1s;
+    animation-timing-function: steps(2, end);
+    text-shadow: -3px -3px 0px var(--alt-hover), 3px 3px 0px var(--alt);
+    background-color: transparent;
+    border: 3px solid var(--alt);
+}
+
+.btn-join:hover {
+    text-shadow: -1px -1px 0px var(--alt-hover), 1px 1px 0px var(--alt);
+    background-color: var(--alt-hover);
+    border: 3px solid var(--alt-hover);
+    box-shadow: 0px 10px 10px -10px var(--alt-hover);
+}
+
+@keyframes glitch_4011 {
+    0% {
+        clip-path: var(--move1);
+        transform: translate(0px, -10px);
+    }
+
+    10% {
+        clip-path: var(--move2);
+        transform: translate(-10px, 10px);
+    }
+
+    20% {
+        clip-path: var(--move3);
+        transform: translate(10px, 0px);
+    }
+
+    30% {
+        clip-path: var(--move4);
+        transform: translate(-10px, 10px);
+    }
+
+    40% {
+        clip-path: var(--move5);
+        transform: translate(10px, -10px);
+    }
+
+    50% {
+        clip-path: var(--move6);
+        transform: translate(-10px, 10px);
+    }
+
+    60% {
+        clip-path: var(--move1);
+        transform: translate(10px, -10px);
+    }
+
+    70% {
+        clip-path: var(--move3);
+        transform: translate(-10px, 10px);
+    }
+
+    80% {
+        clip-path: var(--move2);
+        transform: translate(10px, -10px);
+    }
+
+    90% {
+        clip-path: var(--move4);
+        transform: translate(-10px, 10px);
+    }
+
+    100% {
+        clip-path: var(--move1);
+        transform: translate(0);
+    }
+}
+
+.header nav a {
+    font-size: 1.1em;
+    color: #ccc;
+    font-family: var(--paragraph);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 500;
+    position: relative;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.header nav a::after {
+    content: "";
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    width: 0%;
+    height: 2px;
+    background-color: #1aff8c;
+    transition: width 0.4s cubic-bezier(0.25, 0.8, 0.25, 1),
+        left 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.header nav a:hover {
+    color: #fff;
+}
+
+.header nav a:hover::after {
+    width: 100%;
+    left: 0;
+}
+
+.header nav a.active {
+    color: #1aff8c;
+}
+
+.header nav a.active::after {
+    width: 100%;
+    left: 0;
+}
+
+/* ===================== HERO NOTÍCIAS ===================== */
+
+.hero-noticias {
+    position: relative;
+    width: 100%;
+    background-color: lime;
+    height: 340px;
+    display: flex;
+    align-items: flex-end;
+    padding: 3rem 5rem;
+    overflow: hidden;
+    margin-top: 6rem;
+}
+
+.hero-noticias-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+}
+
+.hero-noticias-bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.4);
+}
+
+.hero-noticias-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, rgba(0, 0, 0, 0.50) 30%, transparent 100%),
+        linear-gradient(0deg, rgba(0, 0, 0, 0.4) 0%, transparent 60%);
+}
+
+/* Conteúdo */
+
+.hero-noticias-content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.hero-noticias-label {
+    font-size: 0.8rem;
+    color: var(--main);
+    letter-spacing: 3px;
+    font-weight: 600;
+    font-family: var(--paragraph);
+}
+
+.hero-noticias-content h1 {
+    font-size: 4rem;
+    font-weight: 800;
+    letter-spacing: 4px;
+    color: var(--text);
+    line-height: 1;
+    font-family: var(--paragraph);
+}
+
+.hero-noticias-content p {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-top: 0.3rem;
+}
+
+/* Badge REC */
+
+.rec-badge {
+    position: absolute;
+    top: 1.5rem;
+    left: 5rem;
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.75rem;
+    letter-spacing: 2px;
+    color: var(--text-muted);
+    font-family: monospace;
+}
+
+.rec-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--alt);
+    box-shadow: 0 0 6px var(--alt);
+    animation: rec-blink 1s infinite;
+}
+
+@keyframes rec-blink {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.2;
+    }
+}
+
+/* Cantos estilo câmera */
+
+.corner {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    z-index: 3;
+    opacity: 0.5;
+}
+
+.corner-tl {
+    top: 1rem;
+    left: 1rem;
+    border-top: 2px solid var(--text);
+    border-left: 2px solid var(--text);
+}
+
+.corner-tr {
+    top: 1rem;
+    right: 1rem;
+    border-top: 2px solid var(--text);
+    border-right: 2px solid var(--text);
+}
+
+.corner-bl {
+    bottom: 1rem;
+    left: 1rem;
+    border-bottom: 2px solid var(--text);
+    border-left: 2px solid var(--text);
+}
+
+.corner-br {
+    bottom: 1rem;
+    right: 1rem;
+    border-bottom: 2px solid var(--text);
+    border-right: 2px solid var(--text);
+}
+
+/* Marca d'água Murkoff */
+
+.murkoff-watermark {
+    position: absolute;
+    bottom: 2rem;
+    right: 5rem;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    opacity: 0.15;
+    filter: grayscale(1);
+}
+
+.murkoff-watermark img {
+    width: 60px;
+}
+
+.murkoff-watermark span {
+    font-size: 0.7rem;
+    letter-spacing: 4px;
+    color: var(--text);
+}
+
+nav .active::after {
+    content: "";
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    width: 0%;
+    height: 2px;
+    background-color: #1aff8c;
+    transition: width 0.4s cubic-bezier(0.25, 0.8, 0.25, 1),
+        left 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+/* ===================== REVEAL HERO NOTÍCIAS ===================== */
+
+.reveal-up {
+    opacity: 0;
+    transform: translateY(30px);
+    animation: reveal-up-anim 0.7s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+    animation-delay: var(--delay, 0s);
+}
+
+@keyframes reveal-up-anim {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.reveal-fade {
+    opacity: 0;
+    animation: reveal-fade-anim 0.6s ease forwards;
+    animation-delay: var(--delay, 0s);
+}
+
+@keyframes reveal-fade-anim {
+    to { opacity: 1; }
+}
+
+/* Cantos — crescem a partir do centro */
+
+.reveal-corner {
+    animation: reveal-corner-anim 0.5s ease forwards;
+    animation-delay: 0.6s;
+    opacity: 0;
+}
+
+.corner-tl.reveal-corner { transform-origin: top left; }
+.corner-tr.reveal-corner { transform-origin: top right; }
+.corner-bl.reveal-corner { transform-origin: bottom left; }
+.corner-br.reveal-corner { transform-origin: bottom right; }
+
+@keyframes reveal-corner-anim {
+    from {
+        opacity: 0;
+        transform: scale(0);
+    }
+    to {
+        opacity: 0.5;
+        transform: scale(1);
+    }
+}
+
+/* Marca d'água — delay maior */
+
+.murkoff-watermark.reveal-fade {
+    animation-delay: 1s;
+}
+
+.murkoff-watermark.reveal-fade.reveal-fade {
+    animation-name: reveal-watermark-anim;
+}
+
+@keyframes reveal-watermark-anim {
+    to { opacity: 0.15; }
+}
