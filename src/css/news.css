@@ -657,7 +657,7 @@ nav .active::after {
 }
 
 .noticia-card.destaque .noticia-card-img {
-    width: 55%;
+    width: 40%;
     flex-shrink: 0;
 }
 

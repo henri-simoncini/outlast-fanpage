@@ -318,8 +318,12 @@ if (recTimer) {
   }, 1000);
 }
 document.addEventListener('DOMContentLoaded', () => {
+
+  // ===================== FILTROS =====================
   const filtros = document.querySelectorAll('.filtro-btn');
   const buscaInput = document.getElementById('busca-input');
+  const POR_PAGINA = 8;
+  let paginaAtual = 1;
 
   if (!filtros.length) return;
 
@@ -327,59 +331,78 @@ document.addEventListener('DOMContentLoaded', () => {
     btn.addEventListener('click', () => {
       filtros.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
-      filtrarNoticias();
+      paginaAtual = 1;
+      aplicarFiltroEPagina();
     });
   });
 
   if (buscaInput) {
-    buscaInput.addEventListener('input', filtrarNoticias);
+    buscaInput.addEventListener('input', () => {
+      paginaAtual = 1;
+      aplicarFiltroEPagina();
+    });
   }
 
-  function filtrarNoticias() {
-    const filtroAtivo = document.querySelector('.filtro-btn.active')?.dataset.filtro;
-    const busca = buscaInput?.value.toLowerCase().trim() || '';
-    const cards = document.querySelectorAll('.noticia-card');
+  // Tags do aside
+  document.querySelectorAll('.aside-tags span').forEach(tag => {
+    tag.addEventListener('click', () => {
+      const filtro = tag.dataset.filtro;
+      filtros.forEach(b => b.classList.remove('active'));
+      const btnAlvo = document.querySelector(`.filtro-btn[data-filtro="${filtro}"]`);
+      if (btnAlvo) btnAlvo.classList.add('active');
+      paginaAtual = 1;
+      aplicarFiltroEPagina();
+    });
+  });
 
-    cards.forEach(card => {
+  // ===================== LÓGICA CENTRAL =====================
+  function aplicarFiltroEPagina() {
+    const filtroAtivo = document.querySelector('.filtro-btn.active')?.dataset.filtro || 'todos';
+    const busca = buscaInput?.value.toLowerCase().trim() || '';
+    const todosCards = [...document.querySelectorAll('.noticia-card:not(.destaque)')];
+    const destaque = document.querySelector('.noticia-card.destaque');
+
+    // Filtra quais cards passam
+    const cardsFiltrados = todosCards.filter(card => {
       const categoria = card.dataset.categoria;
       const titulo = card.querySelector('h3')?.textContent.toLowerCase() || '';
       const texto = card.querySelector('p')?.textContent.toLowerCase() || '';
-
       const passaFiltro = filtroAtivo === 'todos' || categoria === filtroAtivo;
       const passaBusca = busca === '' || titulo.includes(busca) || texto.includes(busca);
-
-      card.style.display = passaFiltro && passaBusca ? '' : 'none';
-    });
-  }
-});
-document.addEventListener('DOMContentLoaded', () => {
-  const POR_PAGINA = 8;
-  let paginaAtual = 1;
-
-  function getCardsVisiveis() {
-    return [...document.querySelectorAll('.noticia-card:not(.destaque)')].filter(c => c.style.display !== 'none');
-  }
-
-  function renderPagina(pagina) {
-    paginaAtual = pagina;
-    const cards = getCardsVisiveis();
-    const total = Math.ceil(cards.length / (POR_PAGINA - 1));
-
-    cards.forEach((card, i) => {
-      const inicio = (pagina - 1) * (POR_PAGINA - 1);
-      card.style.display = i >= inicio && i < inicio + (POR_PAGINA - 1) ? '' : 'none';
+      return passaFiltro && passaBusca;
     });
 
-    // Destaque sempre visível
-    const destaque = document.querySelector('.noticia-card.destaque');
-    if (destaque) destaque.style.display = '';
+    // Esconde todos primeiro
+    todosCards.forEach(c => c.style.display = 'none');
 
-    renderNums(pagina, total);
+    // Página 1: mostra destaque + 8 cards
+    // Páginas seguintes: só 8 cards, sem destaque
+    const ehPrimeiraPagina = paginaAtual === 1;
 
-    document.getElementById('pag-prev').disabled = pagina === 1;
-    document.getElementById('pag-next').disabled = pagina === total;
+    if (destaque) {
+      const destaquePassaFiltro = filtroAtivo === 'todos' || destaque.dataset.categoria === filtroAtivo;
+      const destaquePassaBusca = busca === '' ||
+        destaque.querySelector('h3')?.textContent.toLowerCase().includes(busca) ||
+        destaque.querySelector('p')?.textContent.toLowerCase().includes(busca);
+      destaque.style.display = (destaquePassaFiltro && destaquePassaBusca && ehPrimeiraPagina) ? '' : 'none';
+    }
+
+    const inicio = ehPrimeiraPagina ? 0 : (paginaAtual - 1) * POR_PAGINA - (destaque ? 0 : 0);
+    const cardsPagina = ehPrimeiraPagina
+      ? cardsFiltrados.slice(0, POR_PAGINA)
+      : cardsFiltrados.slice((paginaAtual - 1) * POR_PAGINA, paginaAtual * POR_PAGINA);
+
+    cardsPagina.forEach(c => c.style.display = '');
+
+    // Total de páginas: página 1 tem 8, restantes têm 8 cada
+    const totalPaginas = Math.max(1, Math.ceil(cardsFiltrados.length / POR_PAGINA));
+
+    renderNums(paginaAtual, totalPaginas);
+    document.getElementById('pag-prev').disabled = paginaAtual === 1;
+    document.getElementById('pag-next').disabled = paginaAtual === totalPaginas;
   }
 
+  // ===================== PAGINAÇÃO =====================
   function renderNums(atual, total) {
     const container = document.getElementById('pag-nums');
     container.innerHTML = '';
@@ -405,26 +428,30 @@ document.addEventListener('DOMContentLoaded', () => {
         const btn = document.createElement('button');
         btn.className = 'pag-num' + (p === atual ? ' active' : '');
         btn.textContent = p;
-        btn.addEventListener('click', () => renderPagina(p));
+        btn.addEventListener('click', () => {
+          paginaAtual = p;
+          aplicarFiltroEPagina();
+          window.scrollTo({ top: document.querySelector('.noticias-main').offsetTop - 100, behavior: 'smooth' });
+        });
         container.appendChild(btn);
       }
     });
   }
 
-  document.getElementById('pag-prev').addEventListener('click', () => renderPagina(paginaAtual - 1));
-  document.getElementById('pag-next').addEventListener('click', () => renderPagina(paginaAtual + 1));
-
-  // Tags do aside filtram as notícias
-  document.querySelectorAll('.aside-tags span').forEach(tag => {
-    tag.addEventListener('click', () => {
-      const filtro = tag.dataset.filtro;
-      document.querySelectorAll('.filtro-btn').forEach(b => b.classList.remove('active'));
-      const btnAlvo = document.querySelector(`.filtro-btn[data-filtro="${filtro}"]`);
-      if (btnAlvo) btnAlvo.classList.add('active');
-      filtrarNoticias();
-      renderPagina(1);
-    });
+  document.getElementById('pag-prev').addEventListener('click', () => {
+    if (paginaAtual > 1) {
+      paginaAtual--;
+      aplicarFiltroEPagina();
+      window.scrollTo({ top: document.querySelector('.noticias-main').offsetTop - 100, behavior: 'smooth' });
+    }
   });
 
-  renderPagina(1);
+  document.getElementById('pag-next').addEventListener('click', () => {
+    paginaAtual++;
+    aplicarFiltroEPagina();
+    window.scrollTo({ top: document.querySelector('.noticias-main').offsetTop - 100, behavior: 'smooth' });
+  });
+
+  // Inicializa
+  aplicarFiltroEPagina();
 });
