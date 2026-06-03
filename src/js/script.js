@@ -317,6 +317,7 @@ if (recTimer) {
     recTimer.textContent = `${h}:${m}:${s}`;
   }, 1000);
 }
+
 document.addEventListener('DOMContentLoaded', () => {
 
   // ===================== FILTROS =====================
@@ -387,71 +388,56 @@ document.addEventListener('DOMContentLoaded', () => {
       destaque.style.display = (destaquePassaFiltro && destaquePassaBusca && ehPrimeiraPagina) ? '' : 'none';
     }
 
-    const inicio = ehPrimeiraPagina ? 0 : (paginaAtual - 1) * POR_PAGINA - (destaque ? 0 : 0);
-    const cardsPagina = ehPrimeiraPagina
-      ? cardsFiltrados.slice(0, POR_PAGINA)
-      : cardsFiltrados.slice((paginaAtual - 1) * POR_PAGINA, paginaAtual * POR_PAGINA);
+    // Fatia correta de cards para a página atual
+    const inicio = (paginaAtual - 1) * POR_PAGINA;
+    const fim = inicio + POR_PAGINA;
+    cardsFiltrados.slice(inicio, fim).forEach(c => c.style.display = '');
 
-    cardsPagina.forEach(c => c.style.display = '');
-
-    // Total de páginas: página 1 tem 8, restantes têm 8 cada
+    // Total de páginas
     const totalPaginas = Math.max(1, Math.ceil(cardsFiltrados.length / POR_PAGINA));
 
     renderNums(paginaAtual, totalPaginas);
     document.getElementById('pag-prev').disabled = paginaAtual === 1;
     document.getElementById('pag-next').disabled = paginaAtual === totalPaginas;
   }
+  aplicarFiltroEPagina();
+});
 
-  // ===================== PAGINAÇÃO =====================
-  function renderNums(atual, total) {
-    const container = document.getElementById('pag-nums');
-    container.innerHTML = '';
+const pagPrev = document.getElementById('pag-prev');
+const pagNext = document.getElementById('pag-next');
+const pagNums = document.getElementById('pag-nums');
 
-    let pages = [];
-    if (total <= 5) {
-      pages = Array.from({ length: total }, (_, i) => i + 1);
-    } else {
-      pages = [1];
-      if (atual > 3) pages.push('...');
-      for (let i = Math.max(2, atual - 1); i <= Math.min(total - 1, atual + 1); i++) pages.push(i);
-      if (atual < total - 2) pages.push('...');
-      pages.push(total);
+function renderNums(atual, total) {
+  pagNums.innerHTML = '';
+
+  for (let i = 1; i <= total; i++) {
+    const btn = document.createElement('button');
+
+    btn.classList.add('pag-num');
+
+    if (i === atual) {
+      btn.classList.add('active');
     }
 
-    pages.forEach(p => {
-      if (p === '...') {
-        const el = document.createElement('span');
-        el.textContent = '...';
-        el.style.cssText = 'color:var(--text-muted);font-size:.8rem;display:flex;align-items:center;padding:0 4px';
-        container.appendChild(el);
-      } else {
-        const btn = document.createElement('button');
-        btn.className = 'pag-num' + (p === atual ? ' active' : '');
-        btn.textContent = p;
-        btn.addEventListener('click', () => {
-          paginaAtual = p;
-          aplicarFiltroEPagina();
-          window.scrollTo({ top: document.querySelector('.noticias-main').offsetTop - 100, behavior: 'smooth' });
-        });
-        container.appendChild(btn);
-      }
-    });
-  }
+    btn.textContent = i;
 
-  document.getElementById('pag-prev').addEventListener('click', () => {
-    if (paginaAtual > 1) {
-      paginaAtual--;
+    btn.addEventListener('click', () => {
+      paginaAtual = i;
       aplicarFiltroEPagina();
-      window.scrollTo({ top: document.querySelector('.noticias-main').offsetTop - 100, behavior: 'smooth' });
-    }
-  });
+    });
 
-  document.getElementById('pag-next').addEventListener('click', () => {
-    paginaAtual++;
+    pagNums.appendChild(btn);
+  }
+}
+
+pagPrev?.addEventListener('click', () => {
+  if (paginaAtual > 1) {
+    paginaAtual--;
     aplicarFiltroEPagina();
-    window.scrollTo({ top: document.querySelector('.noticias-main').offsetTop - 100, behavior: 'smooth' });
-  });
+  }
+});
 
-  // Inicializa
+pagNext?.addEventListener('click', () => {
+  paginaAtual++;
   aplicarFiltroEPagina();
 });
