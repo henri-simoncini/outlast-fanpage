@@ -1,37 +1,42 @@
-
 // ANIMAÇÃO DE GLITCH
 const hero = document.querySelector('.hero');
+if (hero) {
+  setInterval(() => {
+    hero.classList.add('glitch-active');
 
-setInterval(() => {
-  hero.classList.add('glitch-active');
+    setTimeout(() => {
+      hero.classList.remove('glitch-active');
+    }, 300);
 
-  setTimeout(() => {
-    hero.classList.remove('glitch-active');
-  }, 300);
-
-}, Math.random() * 5000 + 2000);
+  }, Math.random() * 5000 + 2000);
+}
 
 // SWIPER
-var swiper = new Swiper(".mySwiper", {
-  slidesPerView: 1,
-  spaceBetween: 30,
-  loop: true,
-  grabCursor: true,
-  pagination: {
-    el: ".swiper-pagination",
-    clickable: true,
-  },
-  navigation: {
-    nextEl: ".swiper-button-next",
-    prevEl: ".swiper-button-prev",
-  },
-});
+if (document.querySelector('.mySwiper')) {
+  var swiper = new Swiper(".mySwiper", {
+    slidesPerView: 1,
+    spaceBetween: 30,
+    loop: true,
+    grabCursor: true,
+    pagination: {
+      el: ".swiper-pagination",
+      clickable: true,
+    },
+    navigation: {
+      nextEl: ".swiper-button-next",
+      prevEl: ".swiper-button-prev",
+    },
+  });
+}
+
 (function ($) {
 
   $(document).ready(function () {
 
-    var s = $('.slider'),
-      sWrapper = s.find('.slider-wrapper'),
+    var s = $('.slider');
+    if (!s.length) return;
+
+    var sWrapper = s.find('.slider-wrapper'),
       sItem = s.find('.slide'),
       btn = s.find('.slider-link'),
       sWidth = sItem.width(),
@@ -81,94 +86,105 @@ $('.overlay').addClass('overlay-blue');
 let lastScroll = 0;
 const header = document.querySelector(".header");
 
-window.addEventListener("scroll", () => {
-  const currentScroll = window.scrollY;
+if (header) {
+  window.addEventListener("scroll", () => {
+    const currentScroll = window.scrollY;
 
-  if (!header) return;
+    if (currentScroll <= 0) {
+      header.classList.remove("hide");
+      return;
+    }
 
-  if (currentScroll <= 0) {
-    header.classList.remove("hide");
-    return;
-  }
+    if (currentScroll > lastScroll && currentScroll > 100) {
+      header.classList.add("hide");
+    } else {
+      header.classList.remove("hide");
+    }
 
-  if (currentScroll > lastScroll && currentScroll > 100) {
-    header.classList.add("hide");
-  } else {
-    header.classList.remove("hide");
-  }
+    lastScroll = currentScroll;
+  });
 
-  lastScroll = currentScroll;
-});
+  window.addEventListener("scroll", () => {
+    if (window.scrollY > 50) {
+      header.classList.add("scrolled");
+    } else {
+      header.classList.remove("scrolled");
+    }
+  });
+}
 
-window.addEventListener("scroll", () => {
-  if (window.scrollY > 50) {
-    header.classList.add("scrolled");
-  } else {
-    header.classList.remove("scrolled");
-  }
-});
-const hqs = [
-  { num: 1, title: "The Murkoff Files #1", desc: "Documentos vazados revelam os primeiros experimentos da Murkoff.", cover: "assets/img/hqs/collection-1.webp" },
-  { num: 2, title: "The Murkoff Files #2", desc: "O horror se intensifica enquanto os sujeitos de teste começam a desaparecer.", cover: "assets/img/hqs/collection-2.webp" },
-  { num: 3, title: "The Murkoff Files #3", desc: "Um jornalista infiltrado descobre a verdade sobre o Projeto Walrider.", cover: "assets/img/hqs/collection-3.webp" },
-  { num: 4, title: "The Murkoff Files #4", desc: "Os arquivos secretos expõem a cumplicidade do governo.", cover: "assets/img/hqs/collection-4.webp" },
-];
-
-let currentHQ = 0;
-const VISIBLE = 4;
+// ===================== HQs =====================
 const hqTrack = document.getElementById('hqs-track');
+if (hqTrack) {
+  const hqs = [
+    { num: 1, title: "The Murkoff Files #1", desc: "Documentos vazados revelam os primeiros experimentos da Murkoff.", cover: "assets/img/hqs/collection-1.webp" },
+    { num: 2, title: "The Murkoff Files #2", desc: "O horror se intensifica enquanto os sujeitos de teste começam a desaparecer.", cover: "assets/img/hqs/collection-2.webp" },
+    { num: 3, title: "The Murkoff Files #3", desc: "Um jornalista infiltrado descobre a verdade sobre o Projeto Walrider.", cover: "assets/img/hqs/collection-3.webp" },
+    { num: 4, title: "The Murkoff Files #4", desc: "Os arquivos secretos expõem a cumplicidade do governo.", cover: "assets/img/hqs/collection-4.webp" },
+  ];
 
-function buildHQSlides() {
-  hqTrack.innerHTML = '';
-  hqs.forEach((h, i) => {
-    const s = document.createElement('div');
-    s.className = 'slide' + (i === currentHQ ? ' active' : '');
-    s.innerHTML = `<img src="${h.cover}" alt="${h.title}"><span class="slide-num">${h.num}</span>`;
-    s.addEventListener('click', () => { currentHQ = i; updateHQ(); });
-    hqTrack.appendChild(s);
-  });
+  let currentHQ = 0;
+  const VISIBLE = 4;
+
+  function buildHQSlides() {
+    hqTrack.innerHTML = '';
+    hqs.forEach((h, i) => {
+      const s = document.createElement('div');
+      s.className = 'slide' + (i === currentHQ ? ' active' : '');
+      s.innerHTML = `<img src="${h.cover}" alt="${h.title}"><span class="slide-num">${h.num}</span>`;
+      s.addEventListener('click', () => { currentHQ = i; updateHQ(); });
+      hqTrack.appendChild(s);
+    });
+  }
+
+  function updateHQ() {
+    hqTrack.querySelectorAll('.slide').forEach((s, i) => s.classList.toggle('active', i === currentHQ));
+    const offset = Math.min(currentHQ, Math.max(0, hqs.length - VISIBLE));
+    hqTrack.style.transform = `translateX(-${offset * (100 / VISIBLE)}%)`;
+    document.getElementById('hqs-title').textContent = hqs[currentHQ].title;
+    document.getElementById('hqs-desc').textContent = hqs[currentHQ].desc;
+  }
+
+  document.getElementById('hqs-prev').onclick = () => { currentHQ = Math.max(0, currentHQ - 1); updateHQ(); };
+  document.getElementById('hqs-next').onclick = () => { currentHQ = Math.min(hqs.length - 1, currentHQ + 1); updateHQ(); };
+
+  buildHQSlides();
+  updateHQ();
 }
 
-function updateHQ() {
-  hqTrack.querySelectorAll('.slide').forEach((s, i) => s.classList.toggle('active', i === currentHQ));
-  const offset = Math.min(currentHQ, Math.max(0, hqs.length - VISIBLE));
-  hqTrack.style.transform = `translateX(-${offset * (100 / VISIBLE)}%)`;
-  document.getElementById('hqs-title').textContent = hqs[currentHQ].title;
-  document.getElementById('hqs-desc').textContent = hqs[currentHQ].desc;
-}
-
-document.getElementById('hqs-prev').onclick = () => { currentHQ = Math.max(0, currentHQ - 1); updateHQ(); };
-document.getElementById('hqs-next').onclick = () => { currentHQ = Math.min(hqs.length - 1, currentHQ + 1); updateHQ(); };
-
-buildHQSlides();
-updateHQ();
-
-const cards = document.querySelectorAll('.carrossel-jogos .card');
+// ===================== CARROSSEL DE JOGOS / TRAILERS =====================
 const trailerTrack = document.getElementById('trailer-track');
-const trailerFrames = trailerTrack.querySelectorAll('iframe');
+if (trailerTrack) {
+  const cards = document.querySelectorAll('.carrossel-jogos .card');
+  const trailerFrames = trailerTrack.querySelectorAll('iframe');
 
-function goToTrailer(index) {
-  trailerTrack.style.transform = `translateX(-${index * 100}%)`;
+  function goToTrailer(index) {
+    trailerTrack.style.transform = `translateX(-${index * 100}%)`;
 
-  trailerFrames.forEach((f, i) => {
-    f.classList.toggle('active', i === index);
+    trailerFrames.forEach((f, i) => {
+      f.classList.toggle('active', i === index);
+    });
+  }
+
+  cards.forEach((card, index) => {
+    card.addEventListener('click', (e) => {
+      if (e.target.closest('a')) return;
+
+      cards.forEach(c => c.classList.remove('active'));
+      card.classList.add('active');
+
+      goToTrailer(index);
+    });
   });
+
+  // Inicia no primeiro
+  if (cards.length) {
+    cards[0].classList.add('active');
+    goToTrailer(0);
+  }
 }
 
-cards.forEach((card, index) => {
-  card.addEventListener('click', (e) => {
-    if (e.target.closest('a')) return;
-
-    cards.forEach(c => c.classList.remove('active'));
-    card.classList.add('active');
-
-    goToTrailer(index);
-  });
-});
-
-// Inicia no primeiro
-cards[0].classList.add('active');
-goToTrailer(0);
+// ===================== REVEAL ON SCROLL =====================
 const reveals = document.querySelectorAll('.reveal');
 
 const observer = new IntersectionObserver((entries) => {
@@ -183,129 +199,137 @@ const observer = new IntersectionObserver((entries) => {
 });
 
 reveals.forEach(el => observer.observe(el));
+
+// ===================== GALERIA =====================
 const galeriaSection = document.querySelector('.galeria');
-const galeriaImgs = document.querySelectorAll('.grade-galeria .linha img');
-const viewerImg = document.getElementById('viewer-img');
-const viewerClose = document.getElementById('viewer-close');
-const viewerPrev = document.getElementById('viewer-prev');
-const viewerNext = document.getElementById('viewer-next');
-const viewerThumbs = document.getElementById('viewer-thumbs');
-const viewerCounter = document.getElementById('viewer-counter');
+if (galeriaSection) {
+  const galeriaImgs = document.querySelectorAll('.grade-galeria .linha img');
+  const viewerImg = document.getElementById('viewer-img');
+  const viewerClose = document.getElementById('viewer-close');
+  const viewerPrev = document.getElementById('viewer-prev');
+  const viewerNext = document.getElementById('viewer-next');
+  const viewerThumbs = document.getElementById('viewer-thumbs');
+  const viewerCounter = document.getElementById('viewer-counter');
 
-const THUMBS_VISIBLE = 4;
-let currentIndex = 0;
-const images = [...galeriaImgs].map(img => img.src);
+  const THUMBS_VISIBLE = 4;
+  let currentIndex = 0;
+  const images = [...galeriaImgs].map(img => img.src);
 
-// Cria os thumbnails no viewer
-images.forEach((src, i) => {
-  const thumb = document.createElement('img');
-  thumb.src = src;
-  thumb.className = 'viewer-thumb';
-  thumb.addEventListener('click', () => goTo(i));
-  viewerThumbs.appendChild(thumb);
-});
+  // Cria os thumbnails no viewer
+  images.forEach((src, i) => {
+    const thumb = document.createElement('img');
+    thumb.src = src;
+    thumb.className = 'viewer-thumb';
+    thumb.addEventListener('click', () => goTo(i));
+    viewerThumbs.appendChild(thumb);
+  });
 
-const thumbEls = viewerThumbs.querySelectorAll('.viewer-thumb');
+  const thumbEls = viewerThumbs.querySelectorAll('.viewer-thumb');
 
-function goTo(index) {
-  currentIndex = index;
-
-  // Atualiza imagem principal
-  viewerImg.style.opacity = 0;
-  setTimeout(() => {
-    viewerImg.src = images[index];
-    viewerImg.style.opacity = 1;
-  }, 150);
-
-  // Atualiza seleção no grid
-  galeriaImgs.forEach((img, i) => img.classList.toggle('selected', i === index));
-
-  // Atualiza thumbs
-  thumbEls.forEach((t, i) => t.classList.toggle('active', i === index));
-
-  // Move o track dos thumbs
-  const offset = Math.min(index, Math.max(0, images.length - THUMBS_VISIBLE));
-  viewerThumbs.style.transform = `translateX(-${offset * (100 / THUMBS_VISIBLE)}%)`;
-
-  // Contador
-  viewerCounter.textContent = `${index + 1} / ${images.length}`;
-}
-
-function openViewer(index) {
-  galeriaSection.classList.add('open');
-  goTo(index);
-}
-
-function closeViewer() {
-  galeriaSection.classList.remove('open');
-  galeriaImgs.forEach(img => img.classList.remove('selected'));
-}
-
-// Clique nas imagens do grid
-galeriaImgs.forEach((img, i) => {
-  img.addEventListener('click', () => openViewer(i));
-});
-
-viewerClose.addEventListener('click', closeViewer);
-viewerPrev.addEventListener('click', () => goTo((currentIndex - 1 + images.length) % images.length));
-viewerNext.addEventListener('click', () => goTo((currentIndex + 1) % images.length));
-const fullscreenOverlay = document.getElementById('fullscreen-overlay');
-const fullscreenImg = document.getElementById('fullscreen-img');
-const fullscreenClose = document.getElementById('fullscreen-close');
-const fullscreenPrev = document.getElementById('fullscreen-prev');
-const fullscreenNext = document.getElementById('fullscreen-next');
-const fullscreenCounter = document.getElementById('fullscreen-counter');
-
-function openFullscreen(index) {
-  currentIndex = index;
-  fullscreenImg.src = images[index];
-  fullscreenCounter.textContent = `${index + 1} / ${images.length}`;
-  fullscreenOverlay.classList.add('open');
-  document.body.style.overflow = 'hidden';
-}
-
-function closeFullscreen() {
-  fullscreenOverlay.classList.remove('open');
-  document.body.style.overflow = '';
-}
-
-function switchFullscreen(index) {
-  fullscreenImg.classList.add('switching');
-
-  setTimeout(() => {
+  function goTo(index) {
     currentIndex = index;
-    fullscreenImg.src = images[currentIndex];
-    fullscreenCounter.textContent = `${currentIndex + 1} / ${images.length}`;
-    goTo(currentIndex);
-    fullscreenImg.classList.remove('switching');
-  }, 200);
+
+    // Atualiza imagem principal
+    viewerImg.style.opacity = 0;
+    setTimeout(() => {
+      viewerImg.src = images[index];
+      viewerImg.style.opacity = 1;
+    }, 150);
+
+    // Atualiza seleção no grid
+    galeriaImgs.forEach((img, i) => img.classList.toggle('selected', i === index));
+
+    // Atualiza thumbs
+    thumbEls.forEach((t, i) => t.classList.toggle('active', i === index));
+
+    // Move o track dos thumbs
+    const offset = Math.min(index, Math.max(0, images.length - THUMBS_VISIBLE));
+    viewerThumbs.style.transform = `translateX(-${offset * (100 / THUMBS_VISIBLE)}%)`;
+
+    // Contador
+    viewerCounter.textContent = `${index + 1} / ${images.length}`;
+  }
+
+  function openViewer(index) {
+    galeriaSection.classList.add('open');
+    goTo(index);
+  }
+
+  function closeViewer() {
+    galeriaSection.classList.remove('open');
+    galeriaImgs.forEach(img => img.classList.remove('selected'));
+  }
+
+  // Clique nas imagens do grid
+  galeriaImgs.forEach((img, i) => {
+    img.addEventListener('click', () => openViewer(i));
+  });
+
+  viewerClose.addEventListener('click', closeViewer);
+  viewerPrev.addEventListener('click', () => goTo((currentIndex - 1 + images.length) % images.length));
+  viewerNext.addEventListener('click', () => goTo((currentIndex + 1) % images.length));
+
+  // ===================== FULLSCREEN =====================
+  const fullscreenOverlay = document.getElementById('fullscreen-overlay');
+  const fullscreenImg = document.getElementById('fullscreen-img');
+  const fullscreenClose = document.getElementById('fullscreen-close');
+  const fullscreenPrev = document.getElementById('fullscreen-prev');
+  const fullscreenNext = document.getElementById('fullscreen-next');
+  const fullscreenCounter = document.getElementById('fullscreen-counter');
+  const viewerFullscreenBtn = document.getElementById('viewer-fullscreen');
+
+  function openFullscreen(index) {
+    currentIndex = index;
+    fullscreenImg.src = images[index];
+    fullscreenCounter.textContent = `${index + 1} / ${images.length}`;
+    fullscreenOverlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeFullscreen() {
+    fullscreenOverlay.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  function switchFullscreen(index) {
+    fullscreenImg.classList.add('switching');
+
+    setTimeout(() => {
+      currentIndex = index;
+      fullscreenImg.src = images[currentIndex];
+      fullscreenCounter.textContent = `${currentIndex + 1} / ${images.length}`;
+      goTo(currentIndex);
+      fullscreenImg.classList.remove('switching');
+    }, 200);
+  }
+
+  viewerFullscreenBtn?.addEventListener('click', () => {
+    openFullscreen(currentIndex);
+  });
+
+  fullscreenClose.addEventListener('click', closeFullscreen);
+
+  fullscreenPrev.addEventListener('click', () => {
+    switchFullscreen((currentIndex - 1 + images.length) % images.length);
+  });
+
+  fullscreenNext.addEventListener('click', () => {
+    switchFullscreen((currentIndex + 1) % images.length);
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (!fullscreenOverlay.classList.contains('open')) return;
+    if (e.key === 'Escape') closeFullscreen();
+    if (e.key === 'ArrowLeft') switchFullscreen((currentIndex - 1 + images.length) % images.length);
+    if (e.key === 'ArrowRight') switchFullscreen((currentIndex + 1) % images.length);
+  });
+
+  fullscreenOverlay.addEventListener('click', (e) => {
+    if (e.target === fullscreenOverlay) closeFullscreen();
+  });
 }
 
-document.getElementById('viewer-fullscreen').addEventListener('click', () => {
-  openFullscreen(currentIndex);
-});
-
-fullscreenClose.addEventListener('click', closeFullscreen);
-
-fullscreenPrev.addEventListener('click', () => {
-  switchFullscreen((currentIndex - 1 + images.length) % images.length);
-});
-
-fullscreenNext.addEventListener('click', () => {
-  switchFullscreen((currentIndex + 1) % images.length);
-});
-
-document.addEventListener('keydown', (e) => {
-  if (!fullscreenOverlay.classList.contains('open')) return;
-  if (e.key === 'Escape') closeFullscreen();
-  if (e.key === 'ArrowLeft') switchFullscreen((currentIndex - 1 + images.length) % images.length);
-  if (e.key === 'ArrowRight') switchFullscreen((currentIndex + 1) % images.length);
-});
-
-fullscreenOverlay.addEventListener('click', (e) => {
-  if (e.target === fullscreenOverlay) closeFullscreen();
-});
-
+// ===================== REC TIMER =====================
 const recTimer = document.getElementById('rec-timer');
 if (recTimer) {
   let seconds = 0;
@@ -318,16 +342,21 @@ if (recTimer) {
   }, 1000);
 }
 
+// ===================== NOTÍCIAS: FILTROS + PAGINAÇÃO =====================
 document.addEventListener('DOMContentLoaded', () => {
 
-  // ===================== FILTROS =====================
+  // ===================== ESTADO / ELEMENTOS =====================
   const filtros = document.querySelectorAll('.filtro-btn');
   const buscaInput = document.getElementById('busca-input');
+  const pagPrev = document.getElementById('pag-prev');
+  const pagNext = document.getElementById('pag-next');
+  const pagNums = document.getElementById('pag-nums');
   const POR_PAGINA = 8;
   let paginaAtual = 1;
 
   if (!filtros.length) return;
 
+  // ===================== FILTROS =====================
   filtros.forEach(btn => {
     btn.addEventListener('click', () => {
       filtros.forEach(b => b.classList.remove('active'));
@@ -356,6 +385,38 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  // ===================== PAGINAÇÃO =====================
+  pagPrev?.addEventListener('click', () => {
+    if (paginaAtual > 1) {
+      paginaAtual--;
+      aplicarFiltroEPagina();
+    }
+  });
+
+  pagNext?.addEventListener('click', () => {
+    paginaAtual++;
+    aplicarFiltroEPagina();
+  });
+
+  function renderNums(atual, total) {
+    pagNums.innerHTML = '';
+
+    for (let i = 1; i <= total; i++) {
+      const btn = document.createElement('button');
+
+      btn.classList.add('pag-num');
+      if (i === atual) btn.classList.add('active');
+      btn.textContent = i;
+
+      btn.addEventListener('click', () => {
+        paginaAtual = i;
+        aplicarFiltroEPagina();
+      });
+
+      pagNums.appendChild(btn);
+    }
+  }
+
   // ===================== LÓGICA CENTRAL =====================
   function aplicarFiltroEPagina() {
     const filtroAtivo = document.querySelector('.filtro-btn.active')?.dataset.filtro || 'todos';
@@ -376,8 +437,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Esconde todos primeiro
     todosCards.forEach(c => c.style.display = 'none');
 
-    // Página 1: mostra destaque + 8 cards
-    // Páginas seguintes: só 8 cards, sem destaque
+    // Página 1: mostra destaque + 8 cards. Páginas seguintes: só 8 cards, sem destaque
     const ehPrimeiraPagina = paginaAtual === 1;
 
     if (destaque) {
@@ -395,49 +455,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Total de páginas
     const totalPaginas = Math.max(1, Math.ceil(cardsFiltrados.length / POR_PAGINA));
+    if (paginaAtual > totalPaginas) paginaAtual = totalPaginas;
 
     renderNums(paginaAtual, totalPaginas);
-    document.getElementById('pag-prev').disabled = paginaAtual === 1;
-    document.getElementById('pag-next').disabled = paginaAtual === totalPaginas;
+    pagPrev.disabled = paginaAtual === 1;
+    pagNext.disabled = paginaAtual === totalPaginas;
   }
-  aplicarFiltroEPagina();
-});
 
-const pagPrev = document.getElementById('pag-prev');
-const pagNext = document.getElementById('pag-next');
-const pagNums = document.getElementById('pag-nums');
-
-function renderNums(atual, total) {
-  pagNums.innerHTML = '';
-
-  for (let i = 1; i <= total; i++) {
-    const btn = document.createElement('button');
-
-    btn.classList.add('pag-num');
-
-    if (i === atual) {
-      btn.classList.add('active');
-    }
-
-    btn.textContent = i;
-
-    btn.addEventListener('click', () => {
-      paginaAtual = i;
-      aplicarFiltroEPagina();
-    });
-
-    pagNums.appendChild(btn);
-  }
-}
-
-pagPrev?.addEventListener('click', () => {
-  if (paginaAtual > 1) {
-    paginaAtual--;
-    aplicarFiltroEPagina();
-  }
-});
-
-pagNext?.addEventListener('click', () => {
-  paginaAtual++;
   aplicarFiltroEPagina();
 });
