@@ -113,6 +113,67 @@ if (header) {
   });
 }
 
+// ===================== MENU MOBILE =====================
+const navToggle = document.getElementById('nav-toggle');
+const mobileMenu = document.getElementById('mobile-menu');
+
+if (navToggle && mobileMenu) {
+  function setMenu(open) {
+    navToggle.classList.toggle('open', open);
+    mobileMenu.classList.toggle('open', open);
+    document.body.classList.toggle('menu-open', open);
+    navToggle.setAttribute('aria-expanded', String(open));
+    navToggle.setAttribute('aria-label', open ? 'Fechar menu' : 'Abrir menu');
+  }
+
+  navToggle.addEventListener('click', () => {
+    setMenu(!mobileMenu.classList.contains('open'));
+  });
+
+  // Clicar num link navega e fecha
+  mobileMenu.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => setMenu(false));
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && mobileMenu.classList.contains('open')) setMenu(false);
+  });
+
+  // Voltou pro desktop com o menu aberto? Fecha, senão o scroll fica travado
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 992 && mobileMenu.classList.contains('open')) setMenu(false);
+  });
+}
+
+// ===================== LINK ATIVO CONFORME A SEÇÃO VISÍVEL =====================
+const navLinks = [...document.querySelectorAll('.header nav a[href^="#"], .mobile-menu nav a[href^="#"]')];
+
+if (navLinks.length) {
+  const vistos = new Set();
+  const alvos = [];
+
+  navLinks.forEach(a => {
+    const id = a.getAttribute('href').slice(1);
+    if (!id || vistos.has(id)) return;
+    const el = document.getElementById(id);
+    if (el) {
+      vistos.add(id);
+      alvos.push(el);
+    }
+  });
+
+  // A faixa central da tela decide qual seção está "ativa"
+  const spy = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      const id = entry.target.id;
+      navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + id));
+    });
+  }, { rootMargin: '-40% 0px -55% 0px', threshold: 0 });
+
+  alvos.forEach(el => spy.observe(el));
+}
+
 // ===================== HQs =====================
 const hqTrack = document.getElementById('hqs-track');
 if (hqTrack) {
@@ -124,7 +185,13 @@ if (hqTrack) {
   ];
 
   let currentHQ = 0;
-  const VISIBLE = 4;
+
+  // Quantas capas cabem por vez — menos espaço, menos capas
+  function hqVisible() {
+    if (window.innerWidth <= 480) return 2;
+    if (window.innerWidth <= 768) return 3;
+    return 4;
+  }
 
   function buildHQSlides() {
     hqTrack.innerHTML = '';
@@ -138,9 +205,11 @@ if (hqTrack) {
   }
 
   function updateHQ() {
+    const visible = hqVisible();
+    hqTrack.style.setProperty('--hq-visible', visible);
     hqTrack.querySelectorAll('.slide').forEach((s, i) => s.classList.toggle('active', i === currentHQ));
-    const offset = Math.min(currentHQ, Math.max(0, hqs.length - VISIBLE));
-    hqTrack.style.transform = `translateX(-${offset * (100 / VISIBLE)}%)`;
+    const offset = Math.min(currentHQ, Math.max(0, hqs.length - visible));
+    hqTrack.style.transform = `translateX(-${offset * (100 / visible)}%)`;
     document.getElementById('hqs-title').textContent = hqs[currentHQ].title;
     document.getElementById('hqs-desc').textContent = hqs[currentHQ].desc;
   }
@@ -150,6 +219,8 @@ if (hqTrack) {
 
   buildHQSlides();
   updateHQ();
+
+  window.addEventListener('resize', updateHQ);
 }
 
 // ===================== CARROSSEL DE JOGOS / TRAILERS =====================
@@ -211,7 +282,13 @@ if (galeriaSection) {
   const viewerThumbs = document.getElementById('viewer-thumbs');
   const viewerCounter = document.getElementById('viewer-counter');
 
-  const THUMBS_VISIBLE = 4;
+  // Quantas miniaturas cabem por vez — mais espaço no mobile, onde o viewer ocupa a largura toda
+  function thumbsVisible() {
+    if (window.innerWidth <= 480) return 4;
+    if (window.innerWidth <= 992) return 6;
+    return 4;
+  }
+
   let currentIndex = 0;
   const images = [...galeriaImgs].map(img => img.src);
 
@@ -243,8 +320,10 @@ if (galeriaSection) {
     thumbEls.forEach((t, i) => t.classList.toggle('active', i === index));
 
     // Move o track dos thumbs
-    const offset = Math.min(index, Math.max(0, images.length - THUMBS_VISIBLE));
-    viewerThumbs.style.transform = `translateX(-${offset * (100 / THUMBS_VISIBLE)}%)`;
+    const visible = thumbsVisible();
+    viewerThumbs.style.setProperty('--thumbs-visible', visible);
+    const offset = Math.min(index, Math.max(0, images.length - visible));
+    viewerThumbs.style.transform = `translateX(-${offset * (100 / visible)}%)`;
 
     // Contador
     viewerCounter.textContent = `${index + 1} / ${images.length}`;
@@ -260,9 +339,17 @@ if (galeriaSection) {
     galeriaImgs.forEach(img => img.classList.remove('selected'));
   }
 
-  // Clique nas imagens do grid
+  // Clique nas imagens do grid.
+  // No mobile o viewer lateral não cabe (ele existe para ficar lado a lado com a
+  // grade), então o clique abre direto em tela cheia.
   galeriaImgs.forEach((img, i) => {
-    img.addEventListener('click', () => openViewer(i));
+    img.addEventListener('click', () => {
+      if (window.innerWidth <= 992) {
+        openFullscreen(i);
+      } else {
+        openViewer(i);
+      }
+    });
   });
 
   viewerClose.addEventListener('click', closeViewer);

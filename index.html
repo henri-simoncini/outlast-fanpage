@@ -1,335 +1,363 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Outlast Fanpage</title>
-        <link rel="stylesheet" href="src/css/style.css">
 
-        <!-- FONTES -->
-        <link href="https://fonts.cdnfonts.com/css/base-02" rel="stylesheet">
-        <link href="https://fonts.cdnfonts.com/css/special-elite" rel="stylesheet">
-        <link href="https://fonts.cdnfonts.com/css/barlow-semi-condensed" rel="stylesheet">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Outlast Fanpage</title>
+    <link rel="stylesheet" href="src/css/style.css">
 
-        <!-- ICONS -->
-        <link rel="shortcut icon" href="assets/icons/icon.png">
-        <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <!-- FONTES -->
+    <link href="https://fonts.cdnfonts.com/css/base-02" rel="stylesheet">
+    <link href="https://fonts.cdnfonts.com/css/special-elite" rel="stylesheet">
+    <link href="https://fonts.cdnfonts.com/css/barlow-semi-condensed" rel="stylesheet">
 
-        <!-- JAVASCRIPT -->
-        <script src="src/js/script.js" defer></script>
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-        <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    </head>
-    <body>
-        <header class="header">
-            <a href="index.html" class="logo">
-                <img src="assets/icons/outlast-logo.png" alt>
-            </a>
-            <nav>
-                <a href="#inicio">INÍCIO</a>
-                <a href="#noticias">NOTÍCIAS</a>
-                <a href="#hqs">HQS</a>
-                <a href="#jogos">JOGOS</a>
-                <a href="#galeria">GALERIA</a>
-                <a href="#sobre">SOBRE</a>
-            </nav>
-            <a href class="btn-join"><p>ENTRAR NO ASILO</p><b>◆</b></a>
-        </header>
-        <section class="hero" id="inicio">
-            <video autoplay muted loop disablepictureinpicture controlslist="nodownload nofullscreen noremoteplayback"
-                x-webkit-airplay="deny" class="bg-hero-img">
-                <source src="assets/video/outlast-bg.mp4">
-            </video>
-            <div class="overlay"></div>
-            <div class="overlay2"></div>
-            <img src="assets/img/rec-overlay.png" alt class="rec-overlay">
-            <div class="glitch-overlay"></div>
-            <article>
-                <div class="glitch-img-wrap reveal">
-                    <img class="glitch-img" src="assets/img/title-hero.png" alt>
-                </div>
-                <h4 class="reveal reveal-delay">EXPLORE O UNIVERSO DE OUTLAST</h4>
-                <div class="btns reveal reveal-delay">
-                    <a href>VER JOGOS</a>
-                    <a href>ÚLTIMAS NOTÍCIAS</a>
-                </div>
-            </article>
-        </section>
-        <section class="news-hqs">
-            <article id="noticias" class="reveal">
-                <h1>NOTÍCIAS</h1>
-                <div class="carrossel">
-                    <div class="card">
-                        <img src="assets/img/carrossel/news-1.jpg" alt>
-                        <i class="date">12 DE MAIO, 2024</i>
-                        <h4>THE OUTLAST TRIALS: NOVA ATUALIZAÇÃO TRAZ NOVOS DESAFIOS E RECOMPENSAS</h4>
-                        <p>A Red Barrels anunciou uma nova atualização para The Outlast Trials com novos mapas,
-                            objetivos e
-                            melhorias gerais...</p>
-                        <a href="news.html">LER MAIS <i class='bx bx-chevron-right'></i></a>
-                    </div>
-                    <div class="card">
-                        <img src="assets/img/carrossel/news-2.jpg" alt>
-                        <i class="date">6 DE MAIO, 2024</i>
-                        <h4>TEORIAS: O SIGNIFICADO POR TRÁS DOS EXPERIMENTOS DA MURKOFF</h4>
-                        <p>Uma análise profunda sobre os experimentos da Murkoff Corporation e como eles conectam todos
-                            os
-                            jogos da franquia.</p>
-                        <a href="news.html">LER MAIS <i class='bx bx-chevron-right'></i></a>
-                    </div>
-                    <div class="card">
-                        <img src="assets/img/carrossel/news-3.webp" alt>
-                        <i class="date">28 DE ABRIL, 2024</i>
-                        <h4>CURIOSIDADES: 15 FATOS SOBRE OUTLAST QUE VOCÊ (PROVAVELMENTE) NÃO SABIA</h4>
-                        <p>Detalhes escondidos, referências e segredos que tornam Outlast uma das franquias de terror
-                            mais
-                            assustadoras.</p>
-                        <a href="news.html">LER MAIS <i class='bx bx-chevron-right'></i></a>
-                    </div>
-                </div>
-            </article>
-            <aside id="hqs" class="reveal reveal-delay">
-                <header class="header-alt">
-                    <h1>HQs</h1>
-                    <a href>VER TODAS <i class='bx bx-chevron-right'></i></a>
-                </header>
-                <div class="slider-wrapper">
-                    <button class="slider-btn" id="hqs-prev">&#8249;</button>
-                    <div class="slides-track-wrap">
-                        <div class="slides-track" id="hqs-track"></div>
-                    </div>
-                    <button class="slider-btn" id="hqs-next">&#8250;</button>
-                </div>
+    <!-- ICONS -->
+    <link rel="shortcut icon" href="assets/icons/icon.png">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
-                <div class="slide-info">
-                    <h3 id="hqs-title"></h3>
-                    <p id="hqs-desc"></p>
-                    <button class="btn-ler">LER HQ</button>
-                </div>
-            </aside>
-        </section>
-        <section class="games-trailer">
-            <article id="jogos" class="reveal">
-                <header class="header-alt">
-                    <h1>JOGOS</h1>
-                    <a href>VER TODOS <i class='bx bx-chevron-right'></i></a>
-                </header>
-                <div class="carrossel-jogos">
-                    <div class="card" data-trailer="ZkSydla4sxo">
-                        <img src="assets/img/carrossel/outlast-cape.jpg" alt>
-                        <h4>OUTLAST</h4>
-                        <p>Você é o jornalista Miles Upshur, explorando o Mount Massive Asylum.</p>
-                        <a href>VER DETALHES <i class='bx bx-chevron-right'></i></a>
-                    </div>
-                    <div class="card" data-trailer="-aMJB6BDX4w">
-                        <img src="assets/img/carrossel/outlast-whistleblower-cape.webp" alt>
-                        <h4>OUTLAST: WHISTLEBLOWER</h4>
-                        <p>Descubra os segredos que acontecem antes dos eventos do primeiro jogo.</p>
-                        <a href>VER DETALHES <i class='bx bx-chevron-right'></i></a>
-                    </div>
-                    <div class="card" data-trailer="EOrTuPljfPU">
-                        <img src="assets/img/carrossel/outlast-2-cape.webp" alt>
-                        <h4>OUTLAST 2</h4>
-                        <p>Siga Blake Langermann em uma jornada aterrorizante pelo deserto do Arizona.</p>
-                        <a href>VER DETALHES <i class='bx bx-chevron-right'></i></a>
-                    </div>
-                    <div class="card" data-trailer="DuKkethkMeo">
-                        <img src="assets/img/carrossel/outlast-trials-cape.jpg" alt>
-                        <h4>THE OUTLAST TRIALS</h4>
-                        <p>Sobreviva aos experimentos da Murkoff em testes de programação avançada.</p>
-                        <a href>VER DETALHES <i class='bx bx-chevron-right'></i></a>
-                    </div>
-                </div>
-            </article>
-            <aside class="reveal reveal-delay">
-                <h3>TRAILER EM DESTAQUE</h3>
-                <div class="trailer-track-wrap">
-                    <div class="trailer-track" id="trailer-track">
-                        <iframe src="https://www.youtube.com/embed/ZkSydla4sxo"
-                            title="Outlast - Trailer Oficial"
-                            frameborder="0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                            allowfullscreen></iframe>
-                        <iframe src="https://www.youtube.com/embed/-aMJB6BDX4w" frameborder="0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                            allowfullscreen></iframe>
-                        <iframe src="https://www.youtube.com/embed/MKrUZ36IVAY" frameborder="0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                            allowfullscreen></iframe>
-                        <iframe src="https://www.youtube.com/embed/DuKkethkMeo" frameborder="0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                            allowfullscreen></iframe>
-                    </div>
-                </aside>
-            </section>
-            <section class="galeria">
-                <article id="galeria" class="reveal">
-                    <header class="header-alt reveal">
-                        <h1>GALERIA</h1>
-                        <div class="center">
-                            <nav>
-                                <a href>TODAS</a>
-                                <a href>PERSONAGENS</a>
-                                <a href>CENÁRIOS</a>
-                                <a href>FANARTS</a>
-                            </nav>
-                        </div>
-                        <a href>VER TODAS <i class='bx bx-chevron-right'></i></a>
-                    </header>
-                    <div class="grade-galeria reveal">
-                        <div class="linha">
-                            <img src="assets/img/carrossel/news-1.jpg" alt>
-                            <img src="assets/img/carrossel/news-2.jpg" alt>
-                            <img src="assets/img/carrossel/news-3.webp" alt>
-                            <img src="assets/img/galeria/01galeria.jpg" alt>
-                            <img src="assets/img/galeria/02galeria.jpg" alt>
-                            <img src="assets/img/galeria/03galeria.jpg" alt>
-                        </div>
-                        <div class="linha">
-                            <img src="assets/img/galeria/04galeria.jpg" alt>
-                            <img src="assets/img/galeria/05galeria.jpg" alt>
-                            <img src="assets/img/galeria/06galeria.jpg" alt>
-                            <img src="assets/img/galeria/07galeria.webp" alt>
-                            <img src="assets/img/galeria/08galeria.webp" alt>
-                            <img src="assets/img/galeria/09galeria.jpg" alt>
-                        </div>
-                        <div class="linha">
-                            <img src="assets/img/galeria/10galeria.webp" alt>
-                            <img src="assets/img/galeria/11galeria.webp" alt>
-                            <img src="assets/img/galeria/12galeria.jpg" alt>
-                            <img src="assets/img/galeria/13galeria.webp" alt>
-                            <img src="assets/img/galeria/14galeria.webp" alt>
-                            <img src="assets/img/galeria/15galeria.jpg" alt>
-                        </div>
-                        <div class="linha">
-                            <img src="assets/img/galeria/16galeria.jpg" alt>
-                            <img src="assets/img/galeria/17galeria.avif" alt>
-                            <img src="assets/img/galeria/18galeria.webp" alt>
-                            <img src="assets/img/galeria/19galeria.webp" alt>
-                            <img src="assets/img/galeria/20galeria.avif" alt>
-                            <img src="assets/img/galeria/21galeria.png" alt>
-                        </div>
-                    </div>
-                </article>
-                <aside class="galeria-viewer">
-                    <div class="viewer-main">
-                        <img id="viewer-img" src alt>
-                        <div class="viewer-controls">
-                            <button class="viewer-btn-icon" id="viewer-fullscreen" title="Tela cheia">
-                                <i class='bx bx-fullscreen'></i>
-                            </button>
-                            <button class="viewer-btn-icon" id="viewer-close">
-                                <i class='bx bx-x'></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="viewer-nav">
-                        <button class="viewer-btn" id="viewer-prev">&#8249;</button>
-                        <div class="viewer-thumbs-wrap">
-                            <div class="viewer-thumbs" id="viewer-thumbs"></div>
-                        </div>
-                        <button class="viewer-btn" id="viewer-next">&#8250;</button>
-                        <span class="viewer-counter" id="viewer-counter">1 / 12</span>
-                    </div>
-                </aside>
-            </section>
+    <!-- JAVASCRIPT -->
+    <script src="src/js/script.js" defer></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+</head>
 
-            <section class="sobre">
-                <article id="sobre" class="reveal">
-                    <h1>SOBRE A FRANQUIA</h1>
-                    <p>
-                        Outlast é uma franquia de jogos de terror em primeira pessoa desenvolvida pela Red Barrels. A
-                        série
-                        se passa no universo da Murkoff Corporation, envolta em segredos, experimentos desumanos e uma
-                        busca
-                        obsessiva por conhecimento.<br><br>
-                        Sem armas. Sem poder. Apenas você, sua câmera e a verdade. <br>
-                        Eles estão sempre assistindo.
-                    </p>
-                    <a href>SAIBA MAIS</a>
-                </article>
-                <aside class="reveal reveal-delay">
-                    <img src="assets/img/bgfooter2.webp" alt="Murkoff Corporation">
-                    <div class="overlay"></div>
-                    <h2>LINHA DO TEMPO</h2>
-                    <div class="timeline">
-                        <div class="timeline-item">
-                            <div class="circle-dot"></div>
-                            <h4>1971</h4>
-                            <p>Primeiros registros dos equipamentos da Murkoff.</p>
-                        </div>
-                        <div class="timeline-item">
-                            <div class="circle-dot"></div>
-                            <h4>2009</h4>
-                            <p>Eventos de Outlast e Outlast: Whistleblower no Mount Massive Asylum.</p>
-                        </div>
-                        <div class="timeline-item">
-                            <div class="circle-dot"></div>
-                            <h4>2013</h4>
-                            <p>Outbreak na Temple Gate e os eventos de Outlast 2.</p>
-                        </div>
-                        <div class="timeline-item">
-                            <div class="circle-dot"></div>
-                            <h4>2017 - presente</h4>
-                            <p>Experimentação em larga escala com The Outlast Trials.</p>
-                        </div>
-                    </div>
-                </aside>
-            </section>
+<body>
+    <header class="header">
+        <a href="index.html" class="logo">
+            <img src="assets/icons/outlast-logo.png" alt="Outlast Fanpage">
+        </a>
+        <nav>
+            <a href="#inicio">INÍCIO</a>
+            <a href="news.html">NOTÍCIAS</a>
+            <a href="#hqs">HQS</a>
+            <a href="#jogos">JOGOS</a>
+            <a href="#galeria">GALERIA</a>
+            <a href="#sobre">SOBRE</a>
+        </nav>
+        <a href="#sobre" class="btn-join">
+            <p>ENTRAR NO ASILO</p><b>◆</b>
+        </a>
+        <button class="nav-toggle" id="nav-toggle" aria-label="Abrir menu" aria-expanded="false"
+            aria-controls="mobile-menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </header>
 
-            <footer class="footer">
-                <div class="footer-brand">
-                    <img src="assets/icons/footer-icon.png" alt>
-                    <span>MURKOFF<br><small>CORPORATION</small></span>
+    <!-- MENU MOBILE -->
+    <div class="mobile-menu" id="mobile-menu">
+        <nav>
+            <a href="#inicio">INÍCIO</a>
+            <a href="news.html">NOTÍCIAS</a>
+            <a href="#hqs">HQS</a>
+            <a href="#jogos">JOGOS</a>
+            <a href="#galeria">GALERIA</a>
+            <a href="#sobre">SOBRE</a>
+        </nav>
+        <a href="#sobre" class="btn-join mobile-join">
+            <p>ENTRAR NO ASILO</p><b>◆</b>
+        </a>
+    </div>
+
+    <section class="hero" id="inicio">
+        <video autoplay muted loop playsinline disablepictureinpicture
+            controlslist="nodownload nofullscreen noremoteplayback" x-webkit-airplay="deny" class="bg-hero-img">
+            <source src="assets/video/outlast-bg.mp4">
+        </video>
+        <div class="overlay"></div>
+        <div class="overlay2"></div>
+        <img src="assets/img/rec-overlay.png" alt class="rec-overlay">
+        <div class="glitch-overlay"></div>
+        <article>
+            <div class="glitch-img-wrap reveal">
+                <img class="glitch-img" src="assets/img/title-hero.png" alt="Outlast">
+            </div>
+            <h4 class="reveal reveal-delay">EXPLORE O UNIVERSO DE OUTLAST</h4>
+            <div class="btns reveal reveal-delay">
+                <a href="#jogos">VER JOGOS</a>
+                <a href="news.html">ÚLTIMAS NOTÍCIAS</a>
+            </div>
+        </article>
+    </section>
+
+    <section class="news-hqs">
+        <article id="noticias" class="reveal">
+            <h1>NOTÍCIAS</h1>
+            <div class="carrossel">
+                <div class="card">
+                    <img src="assets/img/carrossel/news-1.jpg" alt>
+                    <i class="date">12 DE MAIO, 2024</i>
+                    <h4>THE OUTLAST TRIALS: NOVA ATUALIZAÇÃO TRAZ NOVOS DESAFIOS E RECOMPENSAS</h4>
+                    <p>A Red Barrels anunciou uma nova atualização para The Outlast Trials com novos mapas, objetivos e
+                        melhorias gerais...</p>
+                    <a href="news.html">LER MAIS <i class='bx bx-chevron-right'></i></a>
                 </div>
-                <nav>
-                    <h4>NAVEGAÇÃO</h4>
-                    <a href>Início</a>
-                    <a href>Notícias</a>
-                    <a href>HQs</a>
-                    <a href>Jogos</a>
-                    <a href>Galeria</a>
-                    <a href>Sobre</a>
-                </nav>
-                <div class="social">
-                    <h4>REDES SOCIAIS</h4>
-                    <div class="social-icons">
-                        <a href><i class='bx bxl-youtube'></i></a>
-                        <a href><i class='bx bxl-twitter'></i></a>
-                        <a href><i class='bx bxl-instagram'></i></a>
-                        <a href><i class='bx bxl-discord-alt'></i></a>
-                    </div>
+                <div class="card">
+                    <img src="assets/img/carrossel/news-2.jpg" alt>
+                    <i class="date">6 DE MAIO, 2024</i>
+                    <h4>TEORIAS: O SIGNIFICADO POR TRÁS DOS EXPERIMENTOS DA MURKOFF</h4>
+                    <p>Uma análise profunda sobre os experimentos da Murkoff Corporation e como eles conectam todos os
+                        jogos da franquia.</p>
+                    <a href="news.html">LER MAIS <i class='bx bx-chevron-right'></i></a>
                 </div>
-                <div class="disclaimer">
-                    <h4>DISCLAIMER</h4>
-                    <p>Esta é uma fanpage não oficial e não possui qualquer vínculo com a Red Barrels ou Murkoff
-                        Corporation.<br>
-                        Outlast © Red Barrels.</p>
-                </div>
-                <div class="murkoff-system">
-                    <h4>SISTEMA MURKOFF</h4>
-                    <p class="status">STATUS: <span>ONLINE</span></p>
-                    <svg class="ecg" viewBox="0 0 200 50" preserveAspectRatio="none">
-                        <polyline class="ecg-line"
-                            points="0,25 20,25 30,25 35,5 40,45 45,25 55,25 65,25 70,10 75,40 80,25 90,25 200,25" />
-                    </svg>
-                </div>
-                <video autoplay muted loop disablepictureinpicture
-                    controlslist="nodownload nofullscreen noremoteplayback" x-webkit-airplay="deny">
-                    <source src="assets/video/outlast-trailer.mp4">
-                </video>
-            </footer>
-            <div class="fullscreen-overlay" id="fullscreen-overlay">
-                <img id="fullscreen-img" src alt>
-                <button class="fullscreen-close" id="fullscreen-close">
-                    <i class='bx bx-x'></i>
-                </button>
-                <div class="fullscreen-nav">
-                    <button id="fullscreen-prev">&#8249;</button>
-                    <span class="fullscreen-counter" id="fullscreen-counter">1 / 12</span>
-                    <button id="fullscreen-next">&#8250;</button>
+                <div class="card">
+                    <img src="assets/img/carrossel/news-3.webp" alt>
+                    <i class="date">28 DE ABRIL, 2024</i>
+                    <h4>CURIOSIDADES: 15 FATOS SOBRE OUTLAST QUE VOCÊ (PROVAVELMENTE) NÃO SABIA</h4>
+                    <p>Detalhes escondidos, referências e segredos que tornam Outlast uma das franquias de terror mais
+                        assustadoras.</p>
+                    <a href="news.html">LER MAIS <i class='bx bx-chevron-right'></i></a>
                 </div>
             </div>
-        </body>
-    </html>
+        </article>
+        <aside id="hqs" class="reveal reveal-delay">
+            <header class="header-alt">
+                <h1>HQs</h1>
+                <a href="#hqs">VER TODAS <i class='bx bx-chevron-right'></i></a>
+            </header>
+            <div class="slider-wrapper">
+                <button class="slider-btn" id="hqs-prev" aria-label="HQ anterior">&#8249;</button>
+                <div class="slides-track-wrap">
+                    <div class="slides-track" id="hqs-track"></div>
+                </div>
+                <button class="slider-btn" id="hqs-next" aria-label="Próxima HQ">&#8250;</button>
+            </div>
+
+            <div class="slide-info">
+                <h3 id="hqs-title"></h3>
+                <p id="hqs-desc"></p>
+                <button class="btn-ler">LER HQ</button>
+            </div>
+        </aside>
+    </section>
+
+    <section class="games-trailer">
+        <article id="jogos" class="reveal">
+            <header class="header-alt">
+                <h1>JOGOS</h1>
+                <a href="#jogos">VER TODOS <i class='bx bx-chevron-right'></i></a>
+            </header>
+            <div class="carrossel-jogos">
+                <div class="card" data-trailer="ZkSydla4sxo">
+                    <img src="assets/img/carrossel/outlast-cape.jpg" alt>
+                    <h4>OUTLAST</h4>
+                    <p>Você é o jornalista Miles Upshur, explorando o Mount Massive Asylum.</p>
+                    <a href="#jogos">VER DETALHES <i class='bx bx-chevron-right'></i></a>
+                </div>
+                <div class="card" data-trailer="-aMJB6BDX4w">
+                    <img src="assets/img/carrossel/outlast-whistleblower-cape.webp" alt>
+                    <h4>OUTLAST: WHISTLEBLOWER</h4>
+                    <p>Descubra os segredos que acontecem antes dos eventos do primeiro jogo.</p>
+                    <a href="#jogos">VER DETALHES <i class='bx bx-chevron-right'></i></a>
+                </div>
+                <div class="card" data-trailer="EOrTuPljfPU">
+                    <img src="assets/img/carrossel/outlast-2-cape.webp" alt>
+                    <h4>OUTLAST 2</h4>
+                    <p>Siga Blake Langermann em uma jornada aterrorizante pelo deserto do Arizona.</p>
+                    <a href="#jogos">VER DETALHES <i class='bx bx-chevron-right'></i></a>
+                </div>
+                <div class="card" data-trailer="DuKkethkMeo">
+                    <img src="assets/img/carrossel/outlast-trials-cape.jpg" alt>
+                    <h4>THE OUTLAST TRIALS</h4>
+                    <p>Sobreviva aos experimentos da Murkoff em testes de programação avançada.</p>
+                    <a href="#jogos">VER DETALHES <i class='bx bx-chevron-right'></i></a>
+                </div>
+            </div>
+        </article>
+        <aside class="reveal reveal-delay">
+            <h3>TRAILER EM DESTAQUE</h3>
+            <div class="trailer-track-wrap">
+                <div class="trailer-track" id="trailer-track">
+                    <iframe src="https://www.youtube.com/embed/ZkSydla4sxo" title="Outlast - Trailer Oficial"
+                        frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen></iframe>
+                    <iframe src="https://www.youtube.com/embed/-aMJB6BDX4w" title="Outlast: Whistleblower - Trailer"
+                        frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen></iframe>
+                    <iframe src="https://www.youtube.com/embed/MKrUZ36IVAY" title="Outlast 2 - Trailer" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen></iframe>
+                    <iframe src="https://www.youtube.com/embed/DuKkethkMeo" title="The Outlast Trials - Trailer"
+                        frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen></iframe>
+                </div>
+            </div>
+        </aside>
+    </section>
+
+    <section class="galeria">
+        <article id="galeria" class="reveal">
+            <header class="header-alt reveal">
+                <h1>GALERIA</h1>
+                <div class="center">
+                    <nav>
+                        <a href="#galeria">TODAS</a>
+                        <a href="#galeria">PERSONAGENS</a>
+                        <a href="#galeria">CENÁRIOS</a>
+                        <a href="#galeria">FANARTS</a>
+                    </nav>
+                </div>
+                <a href="#galeria">VER TODAS <i class='bx bx-chevron-right'></i></a>
+            </header>
+            <div class="grade-galeria reveal">
+                <div class="linha">
+                    <img src="assets/img/carrossel/news-1.jpg" alt>
+                    <img src="assets/img/carrossel/news-2.jpg" alt>
+                    <img src="assets/img/carrossel/news-3.webp" alt>
+                    <img src="assets/img/galeria/01galeria.jpg" alt>
+                    <img src="assets/img/galeria/02galeria.jpg" alt>
+                    <img src="assets/img/galeria/03galeria.jpg" alt>
+                </div>
+                <div class="linha">
+                    <img src="assets/img/galeria/04galeria.jpg" alt>
+                    <img src="assets/img/galeria/05galeria.jpg" alt>
+                    <img src="assets/img/galeria/06galeria.jpg" alt>
+                    <img src="assets/img/galeria/07galeria.webp" alt>
+                    <img src="assets/img/galeria/08galeria.webp" alt>
+                    <img src="assets/img/galeria/09galeria.jpg" alt>
+                </div>
+                <div class="linha">
+                    <img src="assets/img/galeria/10galeria.webp" alt>
+                    <img src="assets/img/galeria/11galeria.webp" alt>
+                    <img src="assets/img/galeria/12galeria.jpg" alt>
+                    <img src="assets/img/galeria/13galeria.webp" alt>
+                    <img src="assets/img/galeria/14galeria.webp" alt>
+                    <img src="assets/img/galeria/15galeria.jpg" alt>
+                </div>
+                <div class="linha">
+                    <img src="assets/img/galeria/16galeria.jpg" alt>
+                    <img src="assets/img/galeria/17galeria.avif" alt>
+                    <img src="assets/img/galeria/18galeria.webp" alt>
+                    <img src="assets/img/galeria/19galeria.webp" alt>
+                    <img src="assets/img/galeria/20galeria.avif" alt>
+                    <img src="assets/img/galeria/21galeria.png" alt>
+                </div>
+            </div>
+        </article>
+        <aside class="galeria-viewer">
+            <div class="viewer-main">
+                <img id="viewer-img" src alt>
+                <div class="viewer-controls">
+                    <button class="viewer-btn-icon" id="viewer-fullscreen" title="Tela cheia" aria-label="Tela cheia">
+                        <i class='bx bx-fullscreen'></i>
+                    </button>
+                    <button class="viewer-btn-icon" id="viewer-close" aria-label="Fechar visualizador">
+                        <i class='bx bx-x'></i>
+                    </button>
+                </div>
+            </div>
+            <div class="viewer-nav">
+                <button class="viewer-btn" id="viewer-prev" aria-label="Imagem anterior">&#8249;</button>
+                <div class="viewer-thumbs-wrap">
+                    <div class="viewer-thumbs" id="viewer-thumbs"></div>
+                </div>
+                <button class="viewer-btn" id="viewer-next" aria-label="Próxima imagem">&#8250;</button>
+                <span class="viewer-counter" id="viewer-counter">1 / 12</span>
+            </div>
+        </aside>
+    </section>
+
+    <section class="sobre">
+        <article id="sobre" class="reveal">
+            <h1>SOBRE A FRANQUIA</h1>
+            <p>
+                Outlast é uma franquia de jogos de terror em primeira pessoa desenvolvida pela Red Barrels. A série
+                se passa no universo da Murkoff Corporation, envolta em segredos, experimentos desumanos e uma busca
+                obsessiva por conhecimento.<br><br>
+                Sem armas. Sem poder. Apenas você, sua câmera e a verdade. <br>
+                Eles estão sempre assistindo.
+            </p>
+            <a href="news.html">SAIBA MAIS</a>
+        </article>
+        <aside class="reveal reveal-delay">
+            <img src="assets/img/bgfooter2.webp" alt="Murkoff Corporation">
+            <div class="overlay"></div>
+            <h2>LINHA DO TEMPO</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="circle-dot"></div>
+                    <h4>1971</h4>
+                    <p>Primeiros registros dos equipamentos da Murkoff.</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="circle-dot"></div>
+                    <h4>2009</h4>
+                    <p>Eventos de Outlast e Outlast: Whistleblower no Mount Massive Asylum.</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="circle-dot"></div>
+                    <h4>2013</h4>
+                    <p>Outbreak na Temple Gate e os eventos de Outlast 2.</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="circle-dot"></div>
+                    <h4>2017 - presente</h4>
+                    <p>Experimentação em larga escala com The Outlast Trials.</p>
+                </div>
+            </div>
+        </aside>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-brand">
+            <img src="assets/icons/footer-icon.png" alt>
+            <span>MURKOFF<br><small>CORPORATION</small></span>
+        </div>
+        <nav>
+            <h4>NAVEGAÇÃO</h4>
+            <a href="#inicio">Início</a>
+            <a href="news.html">Notícias</a>
+            <a href="#hqs">HQs</a>
+            <a href="#jogos">Jogos</a>
+            <a href="#galeria">Galeria</a>
+            <a href="#sobre">Sobre</a>
+        </nav>
+        <div class="social">
+            <h4>REDES SOCIAIS</h4>
+            <div class="social-icons">
+                <a href="#inicio" aria-label="YouTube"><i class='bx bxl-youtube'></i></a>
+                <a href="#inicio" aria-label="Twitter"><i class='bx bxl-twitter'></i></a>
+                <a href="#inicio" aria-label="Instagram"><i class='bx bxl-instagram'></i></a>
+                <a href="#inicio" aria-label="Discord"><i class='bx bxl-discord-alt'></i></a>
+            </div>
+        </div>
+        <div class="disclaimer">
+            <h4>DISCLAIMER</h4>
+            <p>Esta é uma fanpage não oficial e não possui qualquer vínculo com a Red Barrels ou Murkoff
+                Corporation.<br>
+                Outlast © Red Barrels.</p>
+        </div>
+        <div class="murkoff-system">
+            <h4>SISTEMA MURKOFF</h4>
+            <p class="status">STATUS: <span>ONLINE</span></p>
+            <svg class="ecg" viewBox="0 0 200 50" preserveAspectRatio="none">
+                <polyline class="ecg-line"
+                    points="0,25 20,25 30,25 35,5 40,45 45,25 55,25 65,25 70,10 75,40 80,25 90,25 200,25" />
+            </svg>
+        </div>
+        <video autoplay muted loop playsinline disablepictureinpicture
+            controlslist="nodownload nofullscreen noremoteplayback" x-webkit-airplay="deny">
+            <source src="assets/video/outlast-trailer.mp4">
+        </video>
+    </footer>
+
+    <div class="fullscreen-overlay" id="fullscreen-overlay">
+        <img id="fullscreen-img" src alt>
+        <button class="fullscreen-close" id="fullscreen-close" aria-label="Fechar tela cheia">
+            <i class='bx bx-x'></i>
+        </button>
+        <div class="fullscreen-nav">
+            <button id="fullscreen-prev" aria-label="Imagem anterior">&#8249;</button>
+            <span class="fullscreen-counter" id="fullscreen-counter">1 / 12</span>
+            <button id="fullscreen-next" aria-label="Próxima imagem">&#8250;</button>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -50,9 +50,10 @@ body {
 
 .bg-hero-img {
     position: absolute;
+    inset: 0;
     z-index: -1;
     width: 100%;
-    height: auto;
+    height: 100%;
     object-fit: cover;
     filter: brightness(50%);
 }
@@ -451,7 +452,7 @@ body {
     content: '';
     position: absolute;
     inset: 0;
-    background-image: url('assets/img/title-hero.png');
+    background-image: url('../../assets/img/title-hero.png');
     background-size: 50% 100%;
     background-repeat: no-repeat;
 }
@@ -797,7 +798,7 @@ body {
 }
 
 .slide {
-    flex: 0 0 calc(25% - 9px);
+    flex: 0 0 calc((100% / var(--hq-visible, 4)) - 9px);
     cursor: pointer;
     position: relative;
 }
@@ -1131,8 +1132,8 @@ body {
 }
 
 .viewer-thumb {
-    flex: 0 0 calc(25% - 5px);
-    width: calc(25% - 5px);
+    flex: 0 0 calc((100% / var(--thumbs-visible, 4)) - 5px);
+    width: calc((100% / var(--thumbs-visible, 4)) - 5px);
     aspect-ratio: 1;
     object-fit: cover;
     filter: brightness(0.5) saturate(0.6);
@@ -1683,23 +1684,532 @@ body {
     }
 }
 
-/* Responsive */
+/* ===================== MENU MOBILE ===================== */
 
-@media (max-width: 900px) {
-    .footer {
-        grid-template-columns: 1fr 1fr;
-        padding: 40px 2rem;
+/* Compensa o header fixo ao pular para uma âncora */
+[id] {
+    scroll-margin-top: 90px;
+}
+
+.nav-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 42px;
+    height: 42px;
+    padding: 0 8px;
+    background: transparent;
+    border: 1px solid var(--border);
+    cursor: pointer;
+    transition: 0.25s;
+    flex-shrink: 0;
+}
+
+.nav-toggle:hover {
+    border-color: var(--main);
+    box-shadow: 0 0 8px var(--main-glow);
+}
+
+.nav-toggle span {
+    display: block;
+    width: 100%;
+    height: 2px;
+    background: var(--text);
+    transition: transform 0.3s ease, opacity 0.2s ease;
+}
+
+.nav-toggle.open span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+}
+
+.nav-toggle.open span:nth-child(2) {
+    opacity: 0;
+}
+
+.nav-toggle.open span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+}
+
+.mobile-menu {
+    position: fixed;
+    inset: 0;
+    z-index: 98;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    background: rgba(5, 5, 5, 0.97);
+    backdrop-filter: blur(6px);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.mobile-menu.open {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: all;
+}
+
+/* Linhas de "scanline" para combinar com a estética found-footage */
+.mobile-menu::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0, 0, 0, 0.35) 3px);
+    opacity: 0.5;
+}
+
+.mobile-menu nav {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.6rem;
+}
+
+.mobile-menu nav a {
+    font-size: 1.5rem;
+    letter-spacing: 3px;
+    color: #ccc;
+    font-weight: 500;
+    text-transform: uppercase;
+    position: relative;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: color 0.25s ease;
+}
+
+.mobile-menu.open nav a {
+    animation: mobile-link-in 0.45s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+}
+
+.mobile-menu.open nav a:nth-child(1) {
+    animation-delay: 0.05s;
+}
+
+.mobile-menu.open nav a:nth-child(2) {
+    animation-delay: 0.1s;
+}
+
+.mobile-menu.open nav a:nth-child(3) {
+    animation-delay: 0.15s;
+}
+
+.mobile-menu.open nav a:nth-child(4) {
+    animation-delay: 0.2s;
+}
+
+.mobile-menu.open nav a:nth-child(5) {
+    animation-delay: 0.25s;
+}
+
+.mobile-menu.open nav a:nth-child(6) {
+    animation-delay: 0.3s;
+}
+
+@keyframes mobile-link-in {
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
 }
 
-@media (max-width: 600px) {
+.mobile-menu nav a:hover,
+.mobile-menu nav a.active {
+    color: var(--main);
+    text-shadow: 0 0 12px var(--main-glow);
+}
+
+.mobile-menu .mobile-join {
+    position: relative;
+    z-index: 1;
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+.mobile-menu.open .mobile-join {
+    animation: mobile-link-in 0.45s cubic-bezier(0.25, 0.8, 0.25, 1) 0.35s forwards;
+}
+
+/* Trava o scroll do body enquanto o menu está aberto */
+body.menu-open {
+    overflow: hidden;
+}
+
+/* Com o menu aberto o header não pode se esconder — o botão de fechar vive nele */
+body.menu-open .header {
+    transform: translateY(0);
+    opacity: 1;
+    background-color: transparent;
+    backdrop-filter: none;
+}
+
+/* ===================== RESPONSIVE ===================== */
+
+/* ---------- <= 1200px : desktop menor ---------- */
+@media (max-width: 1200px) {
+
+    .header {
+        padding: 0.7rem 2.5rem;
+    }
+
+    .header nav {
+        gap: 26px;
+    }
+
+    .header nav a {
+        font-size: 1em;
+    }
+
+    .logo img {
+        width: 165px;
+    }
+
+    .hero article {
+        padding: 4rem 3rem;
+    }
+
+    .games-trailer,
+    .galeria {
+        padding: 40px 2.5rem;
+    }
+
+    .sobre {
+        margin: 0 2.5rem;
+    }
+
     .footer {
+        padding: 3rem 2.5rem;
+    }
+
+    .news-hqs>article {
+        margin-left: 1.5rem;
+    }
+
+    .news-hqs>aside {
+        margin-right: 1.5rem;
+    }
+}
+
+/* ---------- <= 992px : entra o menu hambúrguer ---------- */
+@media (max-width: 992px) {
+
+    .header nav,
+    .header>.btn-join {
+        display: none;
+    }
+
+    .nav-toggle {
+        display: flex;
+    }
+
+    .header {
+        padding: 0.7rem 1.5rem;
+    }
+
+    .logo img {
+        width: 150px;
+    }
+
+    /* Notícias + HQs empilham */
+    .news-hqs {
+        flex-direction: column;
+    }
+
+    .news-hqs>article,
+    .news-hqs>aside {
+        width: 100%;
+        margin: 0;
+    }
+
+    #noticias {
+        width: 100%;
+    }
+
+    /* Sem scroll lateral: os cards quebram em linhas conforme a largura */
+    .carrossel {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 16px;
+        overflow-x: visible;
+        scroll-snap-type: none;
+        padding-bottom: 0;
+    }
+
+    .carrossel .card {
+        flex: none;
+        min-width: 0;
+        max-width: none;
+    }
+
+    /* Jogos + trailer empilham, com o trailer em cima */
+    .games-trailer {
         grid-template-columns: 1fr;
+    }
+
+    .games-trailer>aside {
+        order: -1;
+    }
+
+    /* Sem altura do grid, o iframe colapsaria */
+    .trailer-track-wrap {
+        aspect-ratio: 16 / 9;
+        height: auto;
+    }
+
+    /* A grade ocupa a largura toda: aqui o clique abre direto em tela cheia
+       (ver "GALERIA" em script.js), então o visualizador lateral não é usado */
+    .galeria {
+        flex-direction: column;
+    }
+
+    .galeria.open #galeria {
+        width: 100%;
+    }
+
+    .galeria.open .galeria-viewer {
+        display: none;
+    }
+
+    .linha {
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    .linha img,
+    .galeria.open .linha img {
+        height: 100px;
+    }
+
+    /* Sobre empilha */
+    .sobre {
+        grid-template-columns: 1fr;
+    }
+
+    #sobre {
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+    }
+
+    /* Footer: quebra em linhas em vez de espremer */
+    .footer {
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        gap: 24px;
+    }
+
+    .murkoff-system {
+        min-width: 0;
+        flex: 1 1 260px;
+    }
+}
+
+/* ---------- <= 768px : tablet / celular grande ---------- */
+@media (max-width: 768px) {
+
+    .hero {
+        min-height: 520px;
+    }
+
+    .hero article {
+        padding: 3rem 1.5rem;
+    }
+
+    .hero article img {
+        width: 78%;
+    }
+
+    .hero article h4 {
+        font-size: 1.05em;
+        margin-left: 0;
+    }
+
+    .hero article .btns {
+        margin-left: 0;
+        gap: 1rem;
+        flex-wrap: wrap;
+    }
+
+    .hero article .btns a {
+        padding: 0.8rem 1.2rem;
+        font-size: 0.9em;
+    }
+
+    .rec-overlay {
+        width: 70%;
+    }
+
+    /* Jogos viram grade de 2 em vez de fila apertada */
+    .carrossel-jogos {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+        padding: 0.8rem 0;
+    }
+
+    .linha {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .linha img,
+    .galeria.open .linha img {
+        height: 110px;
+    }
+
+    .grade-galeria {
+        padding: 1rem 0;
+    }
+
+    /* Filtros da galeria saem do meio absoluto e viram linha própria */
+    .header-alt {
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .center {
+        order: 3;
+        width: 100%;
+        height: auto;
+    }
+
+    .header-alt nav {
+        position: static;
+        transform: none;
+        justify-content: flex-start;
+        gap: 16px;
+        flex-wrap: wrap;
+    }
+
+    #sobre,
+    .sobre aside {
+        padding: 1.5rem;
+    }
+
+    .sobre {
+        padding: 24px 1rem;
+        margin: 0 1.5rem;
+    }
+
+    .footer {
+        padding: 2.5rem 1.5rem;
+    }
+}
+
+/* ---------- <= 480px : celular ---------- */
+@media (max-width: 480px) {
+
+    .header {
+        padding: 0.6rem 1rem;
+    }
+
+    .logo img {
+        width: 130px;
+    }
+
+    .mobile-menu nav a {
+        font-size: 1.25rem;
+    }
+
+    .hero article {
+        padding: 2.5rem 1.2rem;
+    }
+
+    .hero article img {
+        width: 92%;
+    }
+
+    .hero article .btns {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .hero article .btns a {
         text-align: center;
+    }
+
+    #noticias,
+    .news-hqs>aside {
+        padding: 1.5rem 1rem;
+    }
+
+    #noticias h1 {
+        font-size: 1.6rem;
+    }
+
+    .carrossel {
+        grid-template-columns: 1fr;
+    }
+
+    .carrossel-jogos {
+        grid-template-columns: 1fr;
+    }
+
+    .linha {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .linha img,
+    .galeria.open .linha img {
+        height: 120px;
+    }
+
+    .galeria,
+    .games-trailer {
+        padding: 30px 1rem;
+    }
+
+    .sobre {
+        margin: 0 1rem;
+    }
+
+    #sobre h1 {
+        font-size: 1.2rem;
+    }
+
+    .footer {
+        padding: 2rem 1rem;
+        justify-content: center;
+        text-align: center;
+    }
+
+    .footer-brand,
+    .footer nav,
+    .social,
+    .disclaimer {
+        padding: 0.4rem 0;
+    }
+
+    .footer nav,
+    .social {
+        align-items: center;
     }
 
     .social-icons {
         justify-content: center;
+    }
+
+    .viewer-counter {
+        display: none;
+    }
+}
+
+/* ---------- Acessibilidade: respeitar "reduzir movimento" ---------- */
+@media (prefers-reduced-motion: reduce) {
+
+    .glitch-overlay,
+    .glitch-img-wrap::before,
+    .glitch-img-wrap::after,
+    .ecg-line {
+        animation: none;
+    }
+
+    .reveal {
+        transition-duration: 0.01ms;
     }
 }
 
